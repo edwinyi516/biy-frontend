@@ -1,0 +1,30 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 10px;
+}
+
+#navbar-logo {
+    height: 80%;
+}
+
+.navbar-right-group {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 20%;
+    margin-right: 30px;
+    font-family: 'Poppins';
+    font-size: 1.2em;
+}
+
+#navbar-login {
+    font-weight: 300;
+    margin-right: 30px;
+}
+
+#navbar-signup {
+    font-weight: 500;
+}
