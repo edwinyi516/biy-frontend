@@ -3,11 +3,13 @@ import { NavLink, Link } from 'react-router-dom'
 import '../stylesheets/navbar.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 import logolong from '../assets/images/navbar-logo-long-white.png'
+import logob from '../assets/images/navbar-logo-b.png'
 
 export default function NavBar() {
     return (
         <nav>
             <div class="navbar-logo-container">
+                <img class="navbar-logo-b" src={logob} />
                 <img class="navbar-logo-long" src={logolong} />
                 <a class="navbar-logo-link" href="/"><img class="navbar-logo-short" src={logoshort} /></a>
                 <div class="overlay"></div>
