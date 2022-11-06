@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import '../stylesheets/navbar.css'
-import logoshort from '../images/navbar-logo-short.png'
-import logolong from '../images/navbar-logo-long.png'
+import logoshort from '../assets/images/navbar-logo-short-white.png'
+import logolong from '../assets/images/navbar-logo-long-white.png'
 
 export default function NavBar() {
     return (
@@ -13,8 +13,8 @@ export default function NavBar() {
                 <div class="overlay"></div>
             </div>
             <div class="navbar-right-group">
-                <div id="navbar-login">login.</div>
-                <div id="navbar-signup">signup.</div>
+                <a id="navbar-login" href="/login">login.</a>
+                <a id="navbar-signup" href="/signup">signup.</a>
             </div>
         </nav>
     )
