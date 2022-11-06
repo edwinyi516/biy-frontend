@@ -16,12 +16,21 @@
 }
 
 .home-title-block {
-    margin-top: 7rem;
+    position: absolute;
+    margin: 7rem 0;
     font-family: Gramatika;
     font-size: 5rem;
     line-height: 6.5rem;
     text-align: center;
     color: white;
+    animation: titleBlockTransition 1.25s;
+    -webkit-animation: titleBlockTransition 1.25s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes titleBlockTransition {
+    0% { opacity: 0; padding-top: 75px; }
+    100% { opacity: 1; padding-top: 0px; }
 }
 
 .home-title-block > .home-title-text-gradient {
