@@ -70,7 +70,7 @@
 
 #home-title-image {
     width: 35em;
-    margin-top: -6.5rem;
+    margin-top: -5.5rem;
     animation: titleImageTransition 1.25s;
     -webkit-animation: titleImageTransition 1.25s;
     animation-fill-mode: forwards;
@@ -125,7 +125,7 @@
 
 .biy-overview {
     display: flex;
-    flex-wrap: wrap;
+    white-space: nowrap;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 10rem;
@@ -135,16 +135,14 @@
 }
 
 .biy-overview-tagline {
-    min-width: 380px;
     font-family: Gramatika;
     font-size: 2rem;
 }
 
 .biy-overview-description {
     font-family: "Montserrat";
-    font-size: 1.5rem;
-    margin: 2rem 0 2rem 12.5rem;
-    min-width: 575px;
+    font-size: 1.4rem;
+    margin: 2rem 0 2rem 8rem;
 }
 
 .biy {
