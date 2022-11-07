@@ -20,6 +20,7 @@ export default function Home() {
                 <span className="home-title-text-gradient">Take back control</span><br />of how <span className="home-title-text-gradient">you</span> budget
             </div>
             <img src={hometitleimage} id="home-title-image"></img>
+            <div className="title-sub-text">A platform for deliberate budgeteers</div>
         </div>
     )
 }
