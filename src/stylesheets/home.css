@@ -147,6 +147,7 @@
     min-width: 575px;
 }
 
-.bold {
-    font-weight: 700;
+.biy {
+    font-family: "Righteous";
+    font-weight: 500;
 }

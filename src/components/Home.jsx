@@ -27,7 +27,7 @@ export default function Home() {
                 <section className="home-section-2">
                     <div className="biy-overview">
                         <div className="biy-overview-tagline">Financial situations<br />are unique for everyone.<br />Budgeting should be too.</div>
-                        <div className="biy-overview-description">If no two financial situations are alike,<br />why does online budgeting all look the same?<br /><span className="bold">biy.</span> allows users to regain control of <i>how</i><br />they choose to manage their personal finances.</div>
+                        <div className="biy-overview-description">If no two financial situations are alike,<br />why does online budgeting all look the same?<br /><span className="biy">biy.</span> allows users to regain control of <i>how</i><br />they choose to manage their personal finances.</div>
                     </div>
                 </section>
             </div>
