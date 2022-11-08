@@ -46,6 +46,12 @@ nav {
     animation-fill-mode: forwards;
 }
 
+.navbar-logo-short-static {
+    height: 80%;
+    margin-top: 5px;
+    position: absolute;
+}
+
 @keyframes navBDisplay {
     0%, 99.9% { display: block; }
     100% { display: none; }

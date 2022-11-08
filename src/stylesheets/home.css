@@ -28,7 +28,7 @@
     margin-top: -8rem;
     max-width: 90vw;
     font-family: Gramatika;
-    font-size: 7rem;
+    font-size: 6.5rem;
     line-height: 6.5rem;
     text-align: center;
     white-space: nowrap;
@@ -69,8 +69,9 @@
 }
 
 #home-title-image {
+    z-index: 1;
     width: 35em;
-    margin-top: -5.5rem;
+    margin-top: -6rem;
     animation: titleImageTransition 1.25s;
     -webkit-animation: titleImageTransition 1.25s;
     animation-fill-mode: forwards;
@@ -148,4 +149,10 @@
 .biy {
     font-family: "Righteous";
     font-weight: 500;
+}
+
+@media screen and (max-height: 1000px) {
+    .home-title-block {
+        margin-top: -16rem;
+    }
 }
