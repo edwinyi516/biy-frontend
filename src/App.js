@@ -6,11 +6,14 @@ import Home from './components/Home'
 
 export default function App () {
   return (
-    <div className="app">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
+    <>
+      <div id="stars"></div>
+      <div className="app">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </>
   )
 }

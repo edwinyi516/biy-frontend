@@ -15,7 +15,6 @@ export default function Home() {
 
     return (
         <>
-        <div id="stars"></div>
             <div className="home-container">
                 <section className="home-section-1">
                     <div className="home-title-block">
