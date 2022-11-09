@@ -6,9 +6,8 @@ import logolong from '../assets/images/navbar-logo-long-white.png'
 import logob from '../assets/images/navbar-logo-b.png'
 
 export default function NavBar() {
+    let location = useLocation()
 
-        let location = useLocation()
-        console.log(location.pathname)
     return (
         <nav>
             <div className="navbar-logo-container">
@@ -21,7 +20,7 @@ export default function NavBar() {
                     </>
                 ) : (
                     <>
-                        <a className="navbar-logo-link" href="/"><img className="navbar-logo-short-static" src={logoshort} /></a>
+                        <a className="navbar-logo-link-static" href="/"><img className="navbar-logo-short-static" src={logoshort} /></a>
                     </>
                 )
             }

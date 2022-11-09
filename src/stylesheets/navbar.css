@@ -46,6 +46,10 @@ nav {
     animation-fill-mode: forwards;
 }
 
+.navbar-logo-link-static {
+    margin-top: -69px;
+}
+
 .navbar-logo-short-static {
     height: 80%;
     margin-top: 5px;

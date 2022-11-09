@@ -1,0 +1,122 @@
+/* @import url("reset.css"); */
+
+.signup-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -120px;
+    align-items: center;
+    font-family: 'Poppins';
+    min-height: calc(100vh - 120px);
+    animation: formBlockTransition .75s;
+    -webkit-animation: formBlockTransition .75s;
+}
+
+@keyframes formBlockTransition {
+    0%, 10% { opacity: 0; scale: .85; }
+    100% { opacity: 1; scale: 1; }
+}
+
+.signup-block {
+    width: 450px;
+    background: #45127be6;
+    padding: 4rem;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0px 0px 50px #ffffff1a;
+}
+
+.signup-block::before {
+    content: '';
+    position: absolute;
+    border-radius: 10px;
+    background: #45127b66;
+    inset: 0;
+    transform: rotate(-5deg);
+    z-index: -1;
+    box-shadow: 0px 0px 50px #ffffff0d;
+}
+
+.signup-logo {
+    margin-bottom: 1.5rem;
+}
+
+.signup-logo #signup-logo-img {
+    width: 170px;
+}
+
+.signup-logo, .signup-header, .signup-footer {
+    text-align: center;
+}
+
+.signup-header {
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+.create-an-account-text {
+    font-size: 1.8rem;
+    font-weight: 500;
+    font-family: Gramatika;
+    margin-bottom: .5rem;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.signup-form-name {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-item {
+    position: relative;
+}
+
+.form-icon {
+    position: absolute;
+    top: .88rem;
+    left: 1.2rem;
+    font-size: 1.4rem;
+    opacity: .5;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.signup-block input[type="text"], .signup-block input[type="email"], .signup-block input[type="password"] {
+    border: none;
+    outline: none;
+    background: #ffffff20;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    padding-left: 3.5rem;
+    border-radius: 100px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.signup-block input::placeholder {
+    color: #ffffffcc;
+}
+
+.signup-block input:focus {
+    background: #ffffff30;
+}
+
+.signup-form button {
+    background: #2d0a52;
+    color: #ffffff;
+    font-family: Gramatika;
+    font-size: 1.2rem;
+    margin: 1rem 8rem;
+    padding: 1rem;
+    border-radius: 100px;
+    letter-spacing: 1px;
+}
