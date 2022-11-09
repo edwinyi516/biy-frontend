@@ -18,20 +18,20 @@ export default function Signup() {
                         <div class="signup-form-name">
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">person</span>
-                                <input autofocus type="text" placeholder="first name." required></input>
+                                <input autofocus type="text" placeholder="first name" required></input>
                             </div>
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">group</span>
-                                <input type="text" placeholder="last name." required></input>
+                                <input type="text" placeholder="last name" required></input>
                             </div>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">mail</span>
-                            <input type="text" placeholder="email." required></input>
+                            <input type="text" placeholder="email" required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock</span>
-                            <input type="password" placeholder="password." required></input>
+                            <input type="password" placeholder="password" required></input>
                         </div>
                         <button type="submit">Sign Up</button>
                     </form>
