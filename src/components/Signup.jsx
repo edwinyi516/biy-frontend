@@ -33,6 +33,10 @@ export default function Signup() {
                             <span class="form-icon material-symbols-rounded">lock</span>
                             <input type="password" placeholder="password" required></input>
                         </div>
+                        <div class="form-item">
+                            <span class="form-icon material-symbols-rounded">lock_reset</span>
+                            <input type="password" placeholder="confirm password" required></input>
+                        </div>
                         <button type="submit">Sign Up</button>
                     </form>
                 </div>
