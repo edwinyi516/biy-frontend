@@ -18,20 +18,20 @@ export default function Signup(props) {
                         <div class="signup-form-name">
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">person</span>
-                                <input autofocus type="text" name="firstname" placeholder="first name" required></input>
+                                <input autofocus type="text" id="firstname" placeholder="first name" required></input>
                             </div>
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">group</span>
-                                <input type="text" name="lastname" placeholder="last name" required></input>
+                                <input type="text" id="lastname" placeholder="last name" required></input>
                             </div>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">mail</span>
-                            <input type="text" name="email" placeholder="email" required></input>
+                            <input type="text" id="email" placeholder="email" required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock</span>
-                            <input type="password" name="password" placeholder="password" required></input>
+                            <input type="password" id="password" placeholder="password" required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock_reset</span>
