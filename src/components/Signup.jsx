@@ -1,9 +1,30 @@
+import React, { useState } from 'react'
 import '../stylesheets/signup.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
-import emailIcon from '../assets/images/email_icon.png'
-import passwordIcon from '../assets/images/password_icon.png'
 
 export default function Signup(props) {
+    const [firstname, setFirstName] = useState("")
+    const [lastname, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordcheck, setPasswordCheck] = useState("")
+
+    const handleFirstNameChange = (e) => {
+        setFirstName(e.target.value)
+    }
+    const handleLastNameChange = (e) => {
+        setLastName(e.target.value)
+    }
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
+    }
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
+    }
+    const handlePasswordCheckChange = (e) => {
+        setPasswordCheck(e.target.value)
+    }
+    
     return (
         <>
             <div class="signup-container" onSubmit={props.signup}>
@@ -18,26 +39,26 @@ export default function Signup(props) {
                         <div class="signup-form-name">
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">person</span>
-                                <input autofocus type="text" id="firstname" placeholder="first name" required></input>
+                                <input autofocus type="text" id="firstname" placeholder="first name" onChange={handleFirstNameChange} value={firstname} required></input>
                             </div>
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">group</span>
-                                <input type="text" id="lastname" placeholder="last name" required></input>
+                                <input type="text" id="lastname" placeholder="last name" onChange={handleLastNameChange} value={lastname} required></input>
                             </div>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">mail</span>
-                            <input type="text" id="email" placeholder="email" required></input>
+                            <input type="text" id="email" placeholder="email" onChange={handleEmailChange} value={email} required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock</span>
-                            <input type="password" id="password" placeholder="password" required></input>
+                            <input type="password" id="password" placeholder="password" onChange={handlePasswordChange} value={password} required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock_reset</span>
-                            <input type="password" placeholder="confirm password" required></input>
+                            <input type="password" placeholder="confirm password" onChange={handlePasswordCheckChange} value={passwordcheck} required></input>
                         </div>
-                        <button type="submit">Sign Up</button>
+                        <button type="submit" disabled={!firstname || !lastname || !email || !password || !passwordcheck}>Sign Up</button>
                     </form>
                 </div>
             </div>

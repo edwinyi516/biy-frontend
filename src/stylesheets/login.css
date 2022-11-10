@@ -1,6 +1,6 @@
 /* @import url("reset.css"); */
 
-.signup-container {
+.login-container {
     display: flex;
     justify-content: center;
     margin-top: -7vh;
@@ -16,7 +16,7 @@
     100% { opacity: 1; scale: 1; }
 }
 
-.signup-block {
+.login-block {
     width: 450px;
     background: #45127be6;
     padding: 4rem;
@@ -25,7 +25,7 @@
     box-shadow: 0px 0px 50px #ffffff1a;
 }
 
-.signup-block::before {
+.login-block::before {
     content: '';
     position: absolute;
     border-radius: 10px;
@@ -36,39 +36,34 @@
     box-shadow: 0px 0px 50px #ffffff0d;
 }
 
-.signup-logo {
+.login-logo {
     margin-bottom: 1.5rem;
 }
 
-.signup-logo #signup-logo-img {
+.login-logo #login-logo-img {
     width: 170px;
 }
 
-.signup-logo, .signup-header, .signup-footer {
+.login-logo, .login-header, .login-footer {
     text-align: center;
 }
 
-.signup-header {
+.login-header {
     margin-bottom: 2rem;
     color: #ffffff;
 }
 
-.create-an-account-text {
+.login-text {
     font-size: 1.8rem;
     font-weight: 500;
     font-family: Gramatika;
     margin-bottom: .5rem;
 }
 
-.signup-form {
+.login-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
-
-.signup-form-name {
-    display: flex;
-    gap: 1rem;
 }
 
 .form-item {
@@ -89,7 +84,7 @@
     gap: 7px;
 }
 
-.signup-block input[type="text"], .signup-block input[type="email"], .signup-block input[type="password"] {
+.login-block input[type="text"], .login-block input[type="email"], .login-block input[type="password"] {
     border: none;
     outline: none;
     background: #ffffff20;
@@ -102,15 +97,15 @@
     box-sizing: border-box;
 }
 
-.signup-block input::placeholder {
+.login-block input::placeholder {
     color: #ffffffcc;
 }
 
-.signup-block input:focus {
+.login-block input:focus {
     background: #ffffff40;
 }
 
-.signup-form button {
+.login-form button {
     background: #2d0a52;
     color: #ffffff;
     font-family: Gramatika;
@@ -121,7 +116,7 @@
     letter-spacing: 1px;
 }
 
-.signup-form button:disabled {
+.login-form button:disabled {
     background: #4e4e4e;
     color: #b3b3b3;
 }
