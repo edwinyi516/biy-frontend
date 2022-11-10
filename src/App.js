@@ -58,8 +58,12 @@ export default function App () {
         }
       })
       console.log(response)
-      if (response.status === 201) {
-        navigate("/")
+      if (response.status === 401) {
+        alert("User already exists!")
+        return
+      }
+      else if (response.status === 201) {
+        navigate("/login")
       }
     }
     catch (err) {
