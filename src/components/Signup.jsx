@@ -3,10 +3,10 @@ import logoshort from '../assets/images/navbar-logo-short-white.png'
 import emailIcon from '../assets/images/email_icon.png'
 import passwordIcon from '../assets/images/password_icon.png'
 
-export default function Signup() {
+export default function Signup(props) {
     return (
         <>
-            <div class="signup-container">
+            <div class="signup-container" onSubmit={props.signup}>
                 <div class="signup-block">
                     <div class="signup-logo">
                         <img id="signup-logo-img" src={logoshort}></img>
@@ -18,20 +18,20 @@ export default function Signup() {
                         <div class="signup-form-name">
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">person</span>
-                                <input autofocus type="text" placeholder="first name" required></input>
+                                <input autofocus type="text" name="firstname" placeholder="first name" required></input>
                             </div>
                             <div class="form-item">
                                 <span class="form-icon material-symbols-rounded">group</span>
-                                <input type="text" placeholder="last name" required></input>
+                                <input type="text" name="lastname" placeholder="last name" required></input>
                             </div>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">mail</span>
-                            <input type="text" placeholder="email" required></input>
+                            <input type="text" name="email" placeholder="email" required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock</span>
-                            <input type="password" placeholder="password" required></input>
+                            <input type="password" name="password" placeholder="password" required></input>
                         </div>
                         <div class="form-item">
                             <span class="form-icon material-symbols-rounded">lock_reset</span>
