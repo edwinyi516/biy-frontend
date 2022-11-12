@@ -120,3 +120,23 @@
     background: #4e4e4e;
     color: #b3b3b3;
 }
+
+.no-account-yet-block {
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins';
+    color: #bf83ff;
+}
+
+.no-account-text {
+    margin-right: .8rem;
+}
+
+.login-form-to-signup-link {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.login-form-to-signup-link:hover {
+    color: #c1c1c1;
+}

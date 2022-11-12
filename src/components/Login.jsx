@@ -35,6 +35,10 @@ export default function Login(props) {
                             <input type="password" id="password" placeholder="password" onChange={handlePasswordChange} value={password} required></input>
                         </div>
                         <button type="submit" disabled={!email || !password}>Login</button>
+                        <div className="no-account-yet-block">
+                            <div className="no-account-text">Don't have an account yet?</div>
+                            <a className="login-form-to-signup-link" href="/signup">Sign Up</a>
+                        </div>
                     </form>
                 </div>
             </div>

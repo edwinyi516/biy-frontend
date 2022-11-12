@@ -3,7 +3,7 @@
 .signup-container {
     display: flex;
     justify-content: center;
-    margin-top: -7vh;
+    margin-top: -6vh;
     align-items: center;
     font-family: 'Poppins';
     min-height: calc(100vh - 120px);
@@ -124,4 +124,23 @@
 .signup-form button:disabled {
     background: #4e4e4e;
     color: #b3b3b3;
+}
+
+.already-have-an-account-block {
+    display: flex;
+    justify-content: center;
+    color: #bf83ff;
+}
+
+.already-have-an-account-text {
+    margin-right: .8rem;
+}
+
+.signup-form-to-login-link {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.signup-form-to-login-link:hover {
+    color: #c1c1c1;
 }

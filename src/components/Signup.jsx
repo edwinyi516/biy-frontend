@@ -61,6 +61,10 @@ export default function Signup(props) {
                             <input type="password" placeholder="confirm password" onChange={handlePasswordCheckChange} value={passwordcheck} required></input>
                         </div>
                         <button type="submit" disabled={!firstname || !lastname || !email || !password || !passwordcheck}>Sign Up</button>
+                        <div className="already-have-an-account-block">
+                            <div className="already-have-an-account-text">Already have an account?</div>
+                            <a className="signup-form-to-login-link" href="/login">Login</a>
+                        </div>
                     </form>
                 </div>
             </div>
