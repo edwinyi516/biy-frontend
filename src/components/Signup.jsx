@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../stylesheets/signup.css'
+import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Signup(props) {
@@ -27,6 +28,7 @@ export default function Signup(props) {
     
     return (
         <>
+            <NavBar />
             <div class="signup-container" onSubmit={props.signup}>
                 <div class="signup-block">
                     <div class="signup-logo">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../stylesheets/login.css'
+import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Login(props) {
@@ -15,21 +16,22 @@ export default function Login(props) {
 
     return (
         <>
-            <div class="login-container" onSubmit={props.login}>
-                <div class="login-block">
-                    <div class="login-logo">
+            <NavBar />
+            <div className="login-container" onSubmit={props.login}>
+                <div className="login-block">
+                    <div className="login-logo">
                         <img id="login-logo-img" src={logoshort}></img>
                     </div>
-                    <div class="login-header">
-                        <div class="login-text">Login</div>
+                    <div className="login-header">
+                        <div className="login-text">Login</div>
                     </div>
-                    <form class="login-form">
-                        <div class="form-item">
-                            <span class="form-icon material-symbols-rounded">mail</span>
+                    <form className="login-form">
+                        <div className="form-item">
+                            <span className="form-icon material-symbols-rounded">mail</span>
                             <input type="text" id="email" placeholder="email" onChange={handleEmailChange} value={email} required></input>
                         </div>
-                        <div class="form-item">
-                            <span class="form-icon material-symbols-rounded">lock</span>
+                        <div className="form-item">
+                            <span className="form-icon material-symbols-rounded">lock</span>
                             <input type="password" id="password" placeholder="password" onChange={handlePasswordChange} value={password} required></input>
                         </div>
                         <button type="submit" disabled={!email || !password}>Login</button>

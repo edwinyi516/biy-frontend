@@ -5,7 +5,7 @@ import logoshort from '../assets/images/navbar-logo-short-white.png'
 import logolong from '../assets/images/navbar-logo-long-white.png'
 import logob from '../assets/images/navbar-logo-b.png'
 
-export default function NavBar() {
+export default function NavBar(props) {
     let location = useLocation()
 
     return (
@@ -26,8 +26,18 @@ export default function NavBar() {
             }
             </div>
             <div className="navbar-right-group">
-                <a id="navbar-login" href="/login">login.</a>
-                <a id="navbar-signup" href="/signup">signup.</a>
+                {
+                    (props.currentUser) ? (
+                        <>
+                            <div>Welcome </div>
+                        </>
+                    ) : (
+                        <>
+                            <a id="navbar-login" href="/login">login.</a>
+                            <a id="navbar-signup" href="/signup">signup.</a>
+                        </>
+                    )
+                }
             </div>
         </nav>
     )

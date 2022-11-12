@@ -5,12 +5,37 @@ import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Dashboard from './components/Dashboard'
 
 // const baseURL = 'http://localhost:8000'
 const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
+  const [currentUser, setCurrentUser] = useState({})
+
   const navigate = useNavigate()
+
+  const getCurrentUser = () => {
+    // fetch to the backend
+    const url = baseURL + "/user/currentuser"
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: "include"
+    })
+    .then(res => {
+      if(res.status === 200) {
+        return res.json()
+      } else {
+        return {}
+      }
+    }).then(data => {
+      console.log(data.data)
+      setCurrentUser(data.data)
+    })
+  }
 
   const login = async (e) => {
     console.log("Logging in user")
@@ -71,15 +96,20 @@ export default function App () {
     }
   }
 
+  useEffect(()=>{
+    getCurrentUser()
+  },[])
+
   return (
     <>
       <div id="stars"></div>
       <div className="app">
-        <NavBar />
+        {/* <NavBar currentUser={currentUser} /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login login={login}/>} />
           <Route path="/signup" element={<Signup signup={signup}/>} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </>
