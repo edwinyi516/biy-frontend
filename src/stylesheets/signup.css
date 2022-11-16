@@ -144,3 +144,10 @@
 .signup-form-to-login-link:hover {
     color: #c1c1c1;
 }
+
+.signup-error {
+    position: absolute;
+    color: #c01515;
+    font-size: .85rem;
+    margin-left: 1rem;
+}

@@ -20,7 +20,7 @@ export default function Login(props) {
             <div className="login-container" onSubmit={props.login}>
                 <div className="login-block">
                     <div className="login-logo">
-                        <img id="login-logo-img" src={logoshort}></img>
+                        <img id="login-logo-img" src={logoshort} alt="Logo"></img>
                     </div>
                     <div className="login-header">
                         <div className="login-text">Login</div>

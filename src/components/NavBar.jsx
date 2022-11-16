@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import '../stylesheets/navbar.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 import logolong from '../assets/images/navbar-logo-long-white.png'
@@ -14,30 +14,20 @@ export default function NavBar(props) {
             {
                 location.pathname === "/" ? (
                     <>
-                        <img className="navbar-logo-b" src={logob} />
-                        <img className="navbar-logo-long" src={logolong} />
-                        <a className="navbar-logo-link" href="/"><img className="navbar-logo-short" src={logoshort} /></a>
+                        <img className="navbar-logo-b" src={logob} alt="Logo b" />
+                        <img className="navbar-logo-long" src={logolong} alt="Budget it yourself" />
+                        <a className="navbar-logo-link" href="/"><img className="navbar-logo-short" src={logoshort} alt="Logo" /></a>
                     </>
                 ) : (
                     <>
-                        <a className="navbar-logo-link-static" href="/"><img className="navbar-logo-short-static" src={logoshort} /></a>
+                        <a className="navbar-logo-link-static" href="/"><img className="navbar-logo-short-static" src={logoshort} alt="Logo" /></a>
                     </>
                 )
             }
             </div>
             <div className="navbar-right-group">
-                {
-                    (props.currentUser) ? (
-                        <>
-                            <div>Welcome </div>
-                        </>
-                    ) : (
-                        <>
-                            <a id="navbar-login" href="/login">login.</a>
-                            <a id="navbar-signup" href="/signup">signup.</a>
-                        </>
-                    )
-                }
+                <a id="navbar-login" href="/login">login.</a>
+                <a id="navbar-signup" href="/signup">signup.</a>
             </div>
         </nav>
     )

@@ -1,7 +1,11 @@
+import '../stylesheets/dashboard.css'
+
 export default function Dashboard() {
     return (
         <>
-            <h1>Dashboard</h1>
+            <div className="dashboard-body">
+                <div className="test-header">Dashboard</div>
+            </div>
         </>
     )
 }
