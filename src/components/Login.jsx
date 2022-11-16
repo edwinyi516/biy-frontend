@@ -1,23 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../stylesheets/login.css'
 import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Login(props) {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const initialValues = { email: "", password: "" }
+    const [formValues, setFormValues] = useState(initialValues)
+    const [formErrors, setFormErrors] = useState({})
+    const [submitted, setSubmitted] = useState(false)
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
+    const navigate = useNavigate()
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormValues({ ...formValues, [name]: value })
     }
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setSubmitted(true)
+        setFormErrors(() => {
+            const errors = {}
+            return errors
+        })
     }
+
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && submitted) {
+            setSubmitted(true)
+            const url = props.baseURL + '/user/login'
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: formValues.email,
+                    password: formValues.password
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then((response) => {
+                if (response.status === 401) {
+                    formErrors.loginError = "*Email or password is incorrect!"
+                    setSubmitted(false)
+                    return
+                }
+                if (response.status === 200) {
+                    navigate("/dashboard")
+                }
+            })
+            .catch((err) => {
+                console.log('Error => ', err)
+            })
+        }
+    }, [formErrors])
 
     return (
         <>
             <NavBar />
-            <div className="login-container" onSubmit={props.login}>
+            <div className="login-container" onSubmit={handleSubmit}>
                 <div className="login-block">
                     <div className="login-logo">
                         <img id="login-logo-img" src={logoshort} alt="Logo"></img>
@@ -28,13 +71,20 @@ export default function Login(props) {
                     <form className="login-form">
                         <div className="form-item">
                             <span className="form-icon material-symbols-rounded">mail</span>
-                            <input type="text" id="email" placeholder="email" onChange={handleEmailChange} value={email} required></input>
+                            <input type="text" id="email" name="email" placeholder="email" onChange={handleChange} value={formValues.email} required></input>
                         </div>
                         <div className="form-item">
                             <span className="form-icon material-symbols-rounded">lock</span>
-                            <input type="password" id="password" placeholder="password" onChange={handlePasswordChange} value={password} required></input>
+                            <input type="password" id="password" name="password" placeholder="password" onChange={handleChange} value={formValues.password} required></input>
+                            {
+                                formErrors.loginError ? (
+                                    <div className="login-error">{formErrors.loginError}</div>
+                                ) : (
+                                    null
+                                )
+                            }
                         </div>
-                        <button type="submit" disabled={!email || !password}>Login</button>
+                        <button type="submit" disabled={!formValues.email || !formValues.password ||submitted}>Login</button>
                         <div className="no-account-yet-block">
                             <div className="no-account-text">Don't have an account yet?</div>
                             <a className="login-form-to-signup-link" href="/signup">Sign Up</a>

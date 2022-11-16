@@ -5,11 +5,6 @@ import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Signup(props) {
-    // const [firstname, setFirstName] = useState("")
-    // const [lastname, setLastName] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
-    // const [passwordcheck, setPasswordCheck] = useState("")
 
     const initialValues = { firstname: "", lastname: "", email: "", password: "", passwordcheck: "" }
     const [formValues, setFormValues] = useState(initialValues)
@@ -46,6 +41,7 @@ export default function Signup(props) {
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && submitted) {
             console.log(formValues)
+            setSubmitted(true)
             const url = props.baseURL + '/user/signup'
             fetch(url, {
                 method: 'POST',
@@ -123,7 +119,7 @@ export default function Signup(props) {
                                 )
                             }
                         </div>
-                        <button type="submit" disabled={!formValues.firstname || !formValues.lastname || !formValues.email || !formValues.password || !formValues.passwordcheck}>Sign Up</button>
+                        <button type="submit" disabled={!formValues.firstname || !formValues.lastname || !formValues.email || !formValues.password || !formValues.passwordcheck || submitted}>Sign Up</button>
                         <div className="already-have-an-account-block">
                             <div className="already-have-an-account-text">Already have an account?</div>
                             <a className="signup-form-to-login-link" href="/login">Login</a>

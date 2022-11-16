@@ -23,95 +23,7 @@ export default function App () {
   // }
   // console.log(result.substring(0, result.length - 1))
 
-  const [currentUser, setCurrentUser] = useState({})
-
-  const navigate = useNavigate()
   const location = useLocation()
-
-  const getCurrentUser = () => {
-    // fetch to the backend
-    const url = baseURL + "/user/currentuser"
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: "include"
-    })
-    .then(res => {
-      if(res.status === 200) {
-        return res.json()
-      } else {
-        return {}
-      }
-    }).then(data => {
-      console.log(data.data)
-      setCurrentUser(data.data)
-    })
-  }
-
-  const login = async (e) => {
-    console.log("Logging in user")
-    console.log(e.target.email.value)
-    e.preventDefault()
-    const url = baseURL + '/user/login'
-    try {
-      const response = await fetch(url,{
-        method: 'POST',
-        body: JSON.stringify({
-          email: e.target.email.value,
-          password: e.target.password.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include'
-      })
-      console.log(response)
-      console.log("BODY: ", response.body)
-      if (response.status === 200) {
-        navigate("/")
-      }
-    }
-    catch (err) {
-      console.log('Error => ', err)
-    }
-  }
-
-  const signup = async (e) => {
-    e.preventDefault()
-    console.log(e.target)
-    const url = baseURL + '/user/signup'
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-          email: e.target.email.value,
-          password: e.target.password.value,
-          first_name: e.target.firstname.value,
-          last_name: e.target.lastname.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      console.log(response)
-      if (response.status === 401) {
-        alert("User already exists!")
-        return
-      }
-      else if (response.status === 201) {
-        navigate("/login")
-      }
-    }
-    catch (err) {
-      console.log('Error => ', err)
-    }
-  }
-
-  // useEffect(()=>{
-  //   getCurrentUser()
-  // },[])
 
   return (
     <>
@@ -123,10 +35,9 @@ export default function App () {
         )
       }
       <div className="app">
-        {/* <NavBar currentUser={currentUser} /> */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login login={login}/>} />
+          <Route path="/login" element={<Login baseURL={baseURL} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>

@@ -140,3 +140,12 @@
 .login-form-to-signup-link:hover {
     color: #c1c1c1;
 }
+
+.login-error {
+    position: absolute;
+    width: 100%;
+    margin-top: .5rem;
+    text-align: center;
+    color: #c01515;
+    font-size: .85rem;
+}
