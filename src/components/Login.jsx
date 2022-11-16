@@ -89,6 +89,9 @@ export default function Login(props) {
                             <div className="no-account-text">Don't have an account yet?</div>
                             <a className="login-form-to-signup-link" href="/signup">Sign Up</a>
                         </div>
+                        <div className="forgot-password-block">
+                            <a className="forgot-password-link" href="*">Forgot your password?</a>
+                        </div>
                     </form>
                 </div>
             </div>
