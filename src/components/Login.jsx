@@ -5,7 +5,7 @@ import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Login(props) {
-    const initialValues = { email: "", password: "" }
+    const initialValues = { email: "", password: "", remember: false }
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
@@ -34,7 +34,8 @@ export default function Login(props) {
                 method: 'POST',
                 body: JSON.stringify({
                     email: formValues.email,
-                    password: formValues.password
+                    password: formValues.password,
+                    remember: formValues.remember
                 }),
                 headers: {
                     'Content-Type': 'application/json'
@@ -83,6 +84,10 @@ export default function Login(props) {
                                     null
                                 )
                             }
+                        </div>
+                        <div className="login-remember-me">
+                            <input type="checkbox" id="remember" name="remember" onChange={handleChange} value="True"></input>
+                            <label for="remember" id="remember-me-label">Remember me</label>
                         </div>
                         <button type="submit" disabled={!formValues.email || !formValues.password ||submitted}>Login</button>
                         <div className="no-account-yet-block">

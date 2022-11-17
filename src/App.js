@@ -6,8 +6,8 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 
-// const baseURL = 'http://localhost:8000'
-const baseURL = 'https://biy-backend-server.herokuapp.com'
+const baseURL = 'http://localhost:8000'
+// const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
 
