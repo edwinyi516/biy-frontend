@@ -86,7 +86,7 @@ export default function Signup(props) {
                         <div className="signup-form-name">
                             <div className="form-item">
                                 <span className="form-icon material-symbols-rounded">person</span>
-                                <input autoFocus type="text" id="firstname" name="firstname" placeholder="first name" onChange={handleChange} value={formValues.firstname} required></input>
+                                <input type="text" id="firstname" name="firstname" placeholder="first name" onChange={handleChange} value={formValues.firstname} required autoFocus></input>
                             </div>
                             <div className="form-item">
                                 <span className="form-icon material-symbols-rounded">group</span>

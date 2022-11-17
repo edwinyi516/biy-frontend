@@ -71,7 +71,7 @@ export default function Login(props) {
                     <form className="login-form">
                         <div className="form-item">
                             <span className="form-icon material-symbols-rounded">mail</span>
-                            <input type="text" id="email" name="email" placeholder="email" onChange={handleChange} value={formValues.email} required></input>
+                            <input type="text" id="email" name="email" placeholder="email" onChange={handleChange} value={formValues.email} required autoFocus></input>
                         </div>
                         <div className="form-item">
                             <span className="form-icon material-symbols-rounded">lock</span>

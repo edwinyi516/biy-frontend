@@ -1,0 +1,52 @@
+.footer-block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 125px;
+    padding: 75px 100px;
+    background-color: #00003a;
+    color: #ffffff;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 108.5px;
+    min-width: 500px;
+    max-width: 750px;
+}
+
+.about-biy {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.footer-about-text {
+    font-family: "Poppins";
+    font-size: 2rem;
+}
+
+.footer-logo {
+    height: 55px;
+}
+
+.footer-details {
+    font-family: "Montserrat";
+    font-size: 1.1rem;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 108.5px;
+    min-width: 500px;
+    max-width: 750px;
+}
+
+.copyright {
+    font-family: "Montserrat";
+    text-align: right;
+}
