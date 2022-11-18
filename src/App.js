@@ -6,6 +6,10 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 
+// react-grid-layout stylesheets
+import '../node_modules/react-grid-layout/css/styles.css'
+import '../node_modules/react-resizable/css/styles.css'
+
 const baseURL = 'http://localhost:8000'
 // const baseURL = 'https://biy-backend-server.herokuapp.com'
 
@@ -39,7 +43,7 @@ export default function App () {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login baseURL={baseURL} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard baseURL={baseURL}/>} />
         </Routes>
       </div>
     </>
