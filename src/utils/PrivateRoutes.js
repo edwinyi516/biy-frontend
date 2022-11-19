@@ -1,7 +1,7 @@
-import { Outlet, Navigate } from 'react-router-dom'
+// import { Outlet, Navigate } from 'react-router-dom'
 
-export default function PrivateRoutes () {
-    return (
-        userLoggedIn ? <Outlet /> : <Navigate to="/login" />
-    )
-}
+// export default function PrivateRoutes () {
+//     return (
+//         userLoggedIn ? <Outlet /> : <Navigate to="/login" />
+//     )
+// }

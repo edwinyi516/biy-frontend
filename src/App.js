@@ -11,6 +11,7 @@ const baseURL = 'http://localhost:8000'
 // const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
+  const [currentUser, setCurrentUser] = useState()
 
   //****** FUNCTION FOR RANDOM STARS PLACEMENT ******//
   // function randomNumber(min, max) {
@@ -26,6 +27,26 @@ export default function App () {
 
   const location = useLocation()
 
+  const getCurrentUser = () => {
+    fetch(baseURL + "/user/currentuser",{
+      credentials: "include"
+    })
+    .then(res => {
+      if(res.status === 200) {
+        return res.json()
+      } else {
+        return {}
+      }
+    }).then(data => {
+      // console.log(data.data)
+      setCurrentUser(data.data)
+    })
+  }
+
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
+
   return (
     <>
       {
@@ -37,10 +58,10 @@ export default function App () {
       }
       <div className="app">
         <Routes>
-          <Route element={<PrivateRoutes />}>
+          {/* <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-          <Route path="/" element={<Home />} />
+          </Route> */}
+          <Route path="/" element={<Home currentUser={currentUser}/>} />
           <Route path="/login" element={<Login baseURL={baseURL} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
         </Routes>

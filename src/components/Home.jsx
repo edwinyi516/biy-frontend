@@ -3,7 +3,9 @@ import NavBar from './NavBar'
 import Footer from './Footer'
 import hometitleimage from '../assets/images/home_title_image.png'
 
-export default function Home() {
+export default function Home(props) {
+    console.log(props.currentUser)
+
     return (
         <>
             <NavBar />
