@@ -55,7 +55,7 @@ export default function Login(props) {
                 console.log('Error => ', err)
             })
         }
-    }, [formErrors])
+    }, [formErrors, formValues, navigate, props.baseURL, submitted])
 
     return (
         <>
@@ -85,7 +85,7 @@ export default function Login(props) {
                         </div>
                         <div className="login-remember-me">
                             <input type="checkbox" id="remember" name="remember" onChange={handleChange} value="True"></input>
-                            <label for="remember" id="remember-me-label">Remember me</label>
+                            <label htmlFor="remember" id="remember-me-label">Remember me</label>
                         </div>
                         <button type="submit" disabled={!formValues.email || !formValues.password ||submitted}>Login</button>
                         <div className="no-account-yet-block">

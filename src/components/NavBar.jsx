@@ -29,7 +29,7 @@ export default function NavBar(props) {
             <div className="navbar-right-group">
                 {
                     props.currentUser ? (
-                        <a id="navbar-logout" onClick={props.logout}>logout.</a>
+                        <div id="navbar-logout" onClick={props.logout}>logout.</div>
                     ) : (
                         <>
                             <a id="navbar-login" href="/login">login.</a>

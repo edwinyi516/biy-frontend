@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../stylesheets/signup.css'
-import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Signup(props) {
@@ -69,7 +68,7 @@ export default function Signup(props) {
                 console.log('Error => ', err)
             })
         }
-    }, [formErrors])
+    }, [formErrors, formValues, navigate, props.baseURL, submitted])
     
     return (
         <>

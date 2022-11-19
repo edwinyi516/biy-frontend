@@ -50,7 +50,8 @@ export default function App () {
     fetch(baseURL + "/user/logout", {
       credentials: "include"
     })
-    setCurrentUser()
+    setCurrentUser("")
+    navigate("/")
   }
 
   useEffect(() => {
@@ -75,9 +76,9 @@ export default function App () {
           )
         }
         <Routes>
-          {/* <Route element={<PrivateRoutes />}>
+          <Route element={<PrivateRoutes currentUser={currentUser} />}>
             <Route path="/dashboard" element={<Dashboard />} />
-          </Route> */}
+          </Route>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login baseURL={baseURL} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
