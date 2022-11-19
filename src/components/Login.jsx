@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../stylesheets/login.css'
-import NavBar from './NavBar'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Login(props) {
@@ -60,7 +59,6 @@ export default function Login(props) {
 
     return (
         <>
-            <NavBar />
             <div className="login-container" onSubmit={handleSubmit}>
                 <div className="login-block">
                     <div className="login-logo">

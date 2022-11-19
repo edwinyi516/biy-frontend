@@ -6,6 +6,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
+import NavBar from './components/NavBar'
 
 const baseURL = 'http://localhost:8000'
 // const baseURL = 'https://biy-backend-server.herokuapp.com'
@@ -26,6 +27,7 @@ export default function App () {
   // console.log(result.substring(0, result.length - 1))
 
   const location = useLocation()
+  const navigate = useNavigate()
 
   const getCurrentUser = () => {
     fetch(baseURL + "/user/currentuser",{
@@ -38,9 +40,17 @@ export default function App () {
         return {}
       }
     }).then(data => {
-      // console.log(data.data)
       setCurrentUser(data.data)
+    }).catch((err) => {
+      console.log('Error => ', err)
     })
+  }
+
+  const logout = () => {
+    fetch(baseURL + "/user/logout", {
+      credentials: "include"
+    })
+    setCurrentUser()
   }
 
   useEffect(() => {
@@ -57,11 +67,18 @@ export default function App () {
         )
       }
       <div className="app">
+        {
+          location.pathname === "/dashboard" ? (
+            null
+          ) : (
+            <NavBar currentUser={currentUser} logout={logout} />
+          )
+        }
         <Routes>
           {/* <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route> */}
-          <Route path="/" element={<Home currentUser={currentUser}/>} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login baseURL={baseURL} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
         </Routes>

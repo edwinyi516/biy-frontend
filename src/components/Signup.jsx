@@ -73,7 +73,6 @@ export default function Signup(props) {
     
     return (
         <>
-            <NavBar />
             <div className="signup-container" onSubmit={handleSubmit}>
                 <div className="signup-block">
                     <div className="signup-logo">
@@ -100,7 +99,7 @@ export default function Signup(props) {
                                 formValues.email !== "" ? (
                                     <div className="signup-error">{formErrors.email}</div>
                                 ) : (
-                                    null
+                                    <></>
                                 )
                             }
                         </div>
@@ -115,7 +114,7 @@ export default function Signup(props) {
                                 formValues.passwordcheck !== "" ? (
                                     <div className="signup-error">{formErrors.passwordcheck}</div>
                                 ) : (
-                                    null
+                                    <></>
                                 )
                             }
                         </div>

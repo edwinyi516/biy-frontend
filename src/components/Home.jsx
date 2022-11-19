@@ -1,14 +1,10 @@
 import '../stylesheets/home.css'
-import NavBar from './NavBar'
 import Footer from './Footer'
 import hometitleimage from '../assets/images/home_title_image.png'
 
 export default function Home(props) {
-    console.log(props.currentUser)
-
     return (
         <>
-            <NavBar />
             <div className="home-container">
                 <section className="home-section-1">
                     <div className="home-title-block">
