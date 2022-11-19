@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
 import './stylesheets/app.css'
+import PrivateRoutes from './utils/PrivateRoutes'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -36,10 +37,12 @@ export default function App () {
       }
       <div className="app">
         <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login baseURL={baseURL} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
-          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </>
