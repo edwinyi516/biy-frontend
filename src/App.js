@@ -8,8 +8,8 @@ import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import NavBar from './components/NavBar'
 
-const baseURL = 'http://localhost:8000'
-// const baseURL = 'https://biy-backend-server.herokuapp.com'
+// const baseURL = 'http://localhost:8000'
+const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
   const [currentUser, setCurrentUser] = useState()
