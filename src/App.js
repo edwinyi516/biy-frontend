@@ -13,6 +13,7 @@ const baseURL = 'http://localhost:8000'
 
 export default function App () {
   const [currentUser, setCurrentUser] = useState()
+  const [isLoading, setIsLoading] = useState(true)
 
   //****** FUNCTION FOR RANDOM STARS PLACEMENT ******//
   // function randomNumber(min, max) {
@@ -41,6 +42,8 @@ export default function App () {
       }
     }).then(data => {
       setCurrentUser(data.data)
+      setIsLoading(false)
+      return
     }).catch((err) => {
       console.log('Error => ', err)
     })
@@ -50,6 +53,7 @@ export default function App () {
     fetch(baseURL + "/user/logout", {
       credentials: "include"
     })
+    localStorage.removeItem('currentUser')
     setCurrentUser("")
     navigate("/")
   }
@@ -77,10 +81,11 @@ export default function App () {
         }
         <Routes>
           <Route element={<PrivateRoutes currentUser={currentUser} />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard currentUser={currentUser} />} />
           </Route>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login baseURL={baseURL} />} />
+          {/* <Route path="/dashboard" element={<Dashboard currentUser={currentUser} />} /> */}
+          <Route path="/" element={<Home currentUser={currentUser} />} />
+          <Route path="/login" element={<Login baseURL={baseURL} isLoading={isLoading} getCurrentUser={getCurrentUser} />} />
           <Route path="/signup" element={<Signup baseURL={baseURL} />} />
         </Routes>
       </div>

@@ -3,6 +3,7 @@ import Footer from './Footer'
 import hometitleimage from '../assets/images/home_title_image.png'
 
 export default function Home(props) {
+
     return (
         <>
             <div className="home-container">

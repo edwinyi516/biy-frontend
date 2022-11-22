@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from 'react-router-dom'
 
-export default async function PrivateRoutes (props) {
+export default function PrivateRoutes (props) {
     return (
-        await props.currentUser ? <Outlet /> : <Navigate to="/login" />
+        (props.currentUser && props.isLoading === false) ? <Navigate to="/login" /> : <Outlet />
     )
 }

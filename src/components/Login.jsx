@@ -9,6 +9,8 @@ export default function Login(props) {
     const [formErrors, setFormErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
 
+    const url = props.baseURL + '/user/login'
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -16,7 +18,7 @@ export default function Login(props) {
         setFormValues({ ...formValues, [name]: value })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setSubmitted(true)
         setFormErrors(() => {
@@ -28,7 +30,6 @@ export default function Login(props) {
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && submitted) {
             setSubmitted(true)
-            const url = props.baseURL + '/user/login'
             fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -48,6 +49,7 @@ export default function Login(props) {
                     return
                 }
                 if (response.status === 200) {
+                    props.getCurrentUser()
                     navigate("/dashboard")
                 }
             })
@@ -55,7 +57,7 @@ export default function Login(props) {
                 console.log('Error => ', err)
             })
         }
-    }, [formErrors, formValues, navigate, props.baseURL, submitted])
+    }, [formErrors, formValues, navigate, url, submitted])
 
     return (
         <>
