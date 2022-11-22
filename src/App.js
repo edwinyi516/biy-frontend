@@ -53,7 +53,7 @@ export default function App () {
     fetch(baseURL + "/user/logout", {
       credentials: "include"
     })
-    localStorage.removeItem('currentUser')
+    sessionStorage.removeItem("currentUser")
     setCurrentUser("")
     navigate("/")
   }

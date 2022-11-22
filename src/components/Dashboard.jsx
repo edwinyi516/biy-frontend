@@ -1,7 +1,6 @@
 import '../stylesheets/dashboard.css'
 
 export default function Dashboard(props) {
-    console.log(props.currentUser)
     // console.log(props.currentUser.email)
     // const email = props.currentUser.email
     // console.log("email is email", email)
@@ -11,12 +10,13 @@ export default function Dashboard(props) {
     return (
         <>
             {
-                localStorage.getItem("currentUser") !== undefined ? (
+                props.currentUser ? (
                     <div className="dashboard-body">
-                        <div className="test-header">DASHBOARD</div>
+                        <div className="test-header">Hello {props.currentUser.first_name}</div>
+                        <div>Your email address is {props.currentUser.email}</div>
                     </div>
                 ) : (
-                    null
+                    <div>LOADING</div>
                 )
             }
         </>
