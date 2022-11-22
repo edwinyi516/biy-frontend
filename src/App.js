@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'
+import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import './stylesheets/app.css'
-import PrivateRoutes from './utils/PrivateRoutes'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import NavBar from './components/NavBar'
 
-// const baseURL = 'http://localhost:8000'
-const baseURL = 'https://biy-backend-server.herokuapp.com'
+const baseURL = 'http://localhost:8000'
+// const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
-  const [currentUser, setCurrentUser] = useState()
-  const [isLoading, setIsLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState("")
 
   //****** FUNCTION FOR RANDOM STARS PLACEMENT ******//
   // function randomNumber(min, max) {
@@ -42,7 +40,6 @@ export default function App () {
       }
     }).then(data => {
       setCurrentUser(data.data)
-      setIsLoading(false)
       return
     }).catch((err) => {
       console.log('Error => ', err)
@@ -80,13 +77,22 @@ export default function App () {
           )
         }
         <Routes>
-          <Route element={<PrivateRoutes currentUser={currentUser} />}>
-            <Route path="/dashboard" element={<Dashboard currentUser={currentUser} />} />
-          </Route>
-          {/* <Route path="/dashboard" element={<Dashboard currentUser={currentUser} />} /> */}
-          <Route path="/" element={<Home currentUser={currentUser} />} />
-          <Route path="/login" element={<Login baseURL={baseURL} isLoading={isLoading} getCurrentUser={getCurrentUser} />} />
-          <Route path="/signup" element={<Signup baseURL={baseURL} />} />
+          {
+            currentUser ? (
+              <>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/dashboard" element={<Dashboard currentUser={currentUser} logout={logout} />} />
+                <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<Home currentUser={currentUser} />} />
+                <Route path="/login" element={<Login baseURL={baseURL} getCurrentUser={getCurrentUser} />} />
+                <Route path="/signup" element={<Signup baseURL={baseURL} />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </>
+            )
+          }
         </Routes>
       </div>
     </>

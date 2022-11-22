@@ -14,6 +14,7 @@ export default function Dashboard(props) {
                     <div className="dashboard-body">
                         <div className="test-header">Hello {props.currentUser.first_name}</div>
                         <div>Your email address is {props.currentUser.email}</div>
+                        <div onClick={props.logout}>logout</div>
                     </div>
                 ) : (
                     <div>LOADING</div>
