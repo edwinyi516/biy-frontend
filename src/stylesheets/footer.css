@@ -50,3 +50,13 @@
     font-family: "Montserrat";
     text-align: right;
 }
+
+@media screen and (max-width: 1200px) {
+    .footer-block {
+        flex-direction: column;
+        height: 120px;
+    }
+    .footer-right {
+        margin-top: 1.5rem;
+    }
+} 
