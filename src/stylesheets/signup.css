@@ -151,3 +151,9 @@
     font-size: .85rem;
     margin-left: 1rem;
 }
+
+@media screen and (max-height: 1000px) {
+    .signup-block {
+        zoom: .85;
+    }
+}
