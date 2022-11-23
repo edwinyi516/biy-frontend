@@ -1,0 +1,26 @@
+.dashboard-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.dashboard-container {
+    width: calc(100% - 25px);
+    height: calc(100% - 25px);
+    background-color: #2e2e2e;
+    border-radius: 15px;
+}
+
+#hellogridblock {
+    background-color: red;
+    font-family: Gramatika;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+#morecontentblock {
+    background-color: aqua;
+    border-radius: 0px;
+}
