@@ -3,24 +3,32 @@
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh);
 }
 
 .dashboard-container {
     width: calc(100% - 25px);
     height: calc(100% - 25px);
-    background-color: #2e2e2e;
+    background-color: #1a1b20;
     border-radius: 15px;
 }
 
-#hellogridblock {
-    background-color: red;
-    font-family: Gramatika;
-    border-radius: 10px;
-    padding: 2px;
+.react-grid-item {
+    max-height: calc(100vh - 45px);
+    border-radius: 20px;
+    color: #ffffff;
+    box-shadow: 1rem 1rem 2rem #17181b;
+    background-color: #25292f;
 }
 
-#morecontentblock {
-    background-color: aqua;
-    border-radius: 0px;
+.react-grid-item.react-grid-placeholder {
+    background: #848484;
+}
+
+.react-resizable-handle {
+    margin: 0 10px 10px 0;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+    filter: brightness(0%) invert(1)
 }
