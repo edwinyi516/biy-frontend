@@ -7,7 +7,7 @@ import GridLayout from 'react-grid-layout'
 export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
     const [rowHeight, setRowHeight] = useState()
-    // const [maxRows, setMaxRows] = useState()
+    const [menuActive, setMenuActive] = useState(false)
 
     const layout = [
         { i: "1", x: 0, y: 0, w: 1, h: 2 },
@@ -15,13 +15,24 @@ export default function Dashboard(props) {
         { i: "3", x: 4, y: 0, w: 1, h: 2 }
     ];
 
-    useEffect(() => {
-        let width = window.innerWidth - 25
-        let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 25) / 12
-        // let maxRows = 8
-        setViewWidth(width)
+    const toggleMenuActive = () => {
+        const menuCurrentState = menuActive
+        setMenuActive(!menuCurrentState)
+    }
+
+    const handleResize = () => {
+        let viewportWidth = window.innerWidth
+        let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 50) / 12
+        setViewWidth(viewportWidth - 50)
         setRowHeight(rowHeight)
-        // setMaxRows(maxRows)
+    }
+
+    useEffect(() => {
+        let viewportWidth = window.innerWidth
+        let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 50) / 12
+        setViewWidth(viewportWidth - 50)
+        setRowHeight(rowHeight)
+        window.addEventListener('resize', handleResize)
         document.body.style.overflowY = "hidden"
         return () => {
             document.body.style.overflowY = "scroll"
@@ -30,7 +41,14 @@ export default function Dashboard(props) {
 
     return (
         <>
-            
+            <div className="menu-button" onClick={toggleMenuActive}>
+                <div id="menu-icon" className={menuActive === true ? ("open") : null}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                </div>
+            </div>
             <div className="dashboard-body">
                 <div className="dashboard-container">
                     <GridLayout
@@ -39,15 +57,16 @@ export default function Dashboard(props) {
                         cols={12}
                         margin={[25, 25]}
                         rowHeight={rowHeight}
-                        // maxRows={maxRows}
                         width={viewWidth}
                     >
-                        <div key="1" id="hellogridblock">
-                            <div>Hello</div>
+                        <div key="1">
+                            <div>
+
+                            </div>
                         </div>
-                        <div key="2" id="morecontentblock">
+                        <div key="2">
                         </div>
-                        <div key="3">Even more</div>
+                        <div key="3"></div>
                     </GridLayout>
                 </div>
             </div>
