@@ -62,6 +62,14 @@ export default function Dashboard(props) {
                     </div>
                 </div>
             </div>
+            <div>
+                <div className="add-button">
+                    <div id="plus-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
             <div className="dashboard-body">
                 <div className="dashboard-container">
                     <GridLayout
@@ -75,7 +83,7 @@ export default function Dashboard(props) {
                     >
                         <div key="1">
                             <div>
-
+                                HELLO
                             </div>
                         </div>
                         <div key="2">
