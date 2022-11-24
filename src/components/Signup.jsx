@@ -44,7 +44,7 @@ export default function Signup(props) {
             method: 'POST',
             body: JSON.stringify({
                 user: id,
-                layout_data: [{ i: "1", x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2 }]
+                layout_data: []
             }),
             headers: {
                 'Content-Type': 'application/json'
