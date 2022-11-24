@@ -33,7 +33,7 @@ export default function Dashboard(props) {
 
     useEffect(() => {
         let viewportWidth = window.innerWidth
-        let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 50) / 12
+        let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 30) / 12
         setViewWidth(viewportWidth - 50)
         setRowHeight(rowHeight)
         window.addEventListener('resize', handleResize)
@@ -55,8 +55,11 @@ export default function Dashboard(props) {
                     </div>
                 </div>
                 <div id="menu-content" className={menuActive === true ? ("open") : null}>
-                    <div id="menu-settings-link" className={menuActive === true ? ("open") : null}>settings.</div>
-                    <div id="menu-logout" className={menuActive === true ? ("open") : null} onClick={props.logout}>logout.</div>
+                    <div className="menu-user-name">Hi, {props.currentUser.first_name}!</div>
+                    <div className="menu-bottom">
+                        <div id="menu-settings-link" className={menuActive === true ? ("open") : null}>settings.</div>
+                        <div id="menu-logout" className={menuActive === true ? ("open") : null} onClick={props.logout}>logout.</div>
+                    </div>
                 </div>
             </div>
             <div className="dashboard-body">
