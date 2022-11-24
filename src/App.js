@@ -12,6 +12,7 @@ const baseURL = 'http://localhost:8000'
 
 export default function App () {
   const [currentUser, setCurrentUser] = useState()
+  const [userLayout, setUserLayout] = useState()
 
   //****** FUNCTION FOR RANDOM STARS PLACEMENT ******//
   // function randomNumber(min, max) {
@@ -25,15 +26,15 @@ export default function App () {
   // }
   // console.log(result.substring(0, result.length - 1))
 
-  const userLayout = [
-    { i: "1", x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2 }
-  ];
+  // const userLayout = [
+  //   { i: "1", x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2 }
+  // ];
 
   const location = useLocation()
   const navigate = useNavigate()
 
   const getCurrentUser = () => {
-    fetch(baseURL + "/user/currentuser",{
+    fetch(baseURL + "/user/currentuser", {
       credentials: "include"
     })
     .then(res => {
@@ -42,10 +43,35 @@ export default function App () {
       } else {
         return {}
       }
-    }).then(data => {
+    })
+    .then(data => {
       setCurrentUser(data.data)
       return
-    }).catch((err) => {
+    })
+    .catch((err) => {
+      console.log('Error => ', err)
+    })
+  }
+
+  const getUserLayout = () => {
+    fetch(baseURL + "/layout/", {
+      credentials: "include"
+    })
+    .then(res => {
+      if(res.status === 200) {
+        return res.json()
+      } else {
+        return
+      }
+    })
+    .then(data => {
+      console.log(data.data)
+      let parsedLayout = eval(data.data.layout_data)
+      console.log(parsedLayout)
+      setUserLayout(parsedLayout)
+      return
+    })
+    .catch((err) => {
       console.log('Error => ', err)
     })
   }
@@ -61,6 +87,7 @@ export default function App () {
 
   useEffect(() => {
     getCurrentUser()
+    getUserLayout()
   }, [])
 
   return (
@@ -82,7 +109,7 @@ export default function App () {
         }
         <Routes>
           {
-            currentUser ? (
+            currentUser && userLayout ? (
               <>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="/dashboard" element={<Dashboard currentUser={currentUser} logout={logout} userLayout={userLayout}/>} />
@@ -91,7 +118,7 @@ export default function App () {
             ) : (
               <>
                 <Route path="/" element={<Home currentUser={currentUser} />} />
-                <Route path="/login" element={<Login baseURL={baseURL} getCurrentUser={getCurrentUser} />} />
+                <Route path="/login" element={<Login baseURL={baseURL} getCurrentUser={getCurrentUser} getUserLayout={getUserLayout} />} />
                 <Route path="/signup" element={<Signup baseURL={baseURL} />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </>

@@ -50,6 +50,7 @@ export default function Login(props) {
                 }
                 if (response.status === 200) {
                     props.getCurrentUser()
+                    props.getUserLayout()
                     navigate("/dashboard")
                 }
             })

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../stylesheets/signup.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
+import { create } from 'lodash'
 
 export default function Signup(props) {
 
@@ -37,9 +38,27 @@ export default function Signup(props) {
         return errors
     }
 
+    const createNewLayout = (id) => {
+        const url = props.baseURL + '/layout/new'
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                user: id,
+                layout_data: [{ i: "1", x: 0, y: 0, w: 2, h: 2, minW: 2, minH: 2 }]
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (response.status === 201) {
+                navigate("/login")
+            }
+        })
+    }
+
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && submitted) {
-            console.log(formValues)
             setSubmitted(true)
             const url = props.baseURL + '/user/signup'
             fetch(url, {
@@ -61,8 +80,11 @@ export default function Signup(props) {
                     return
                 }
                 else if (response.status === 201) {
-                navigate("/login")
+                    return response.json()
                 }
+            })
+            .then(data => {
+                createNewLayout(data.data.id)
             })
             .catch((err) => {
                 console.log('Error => ', err)

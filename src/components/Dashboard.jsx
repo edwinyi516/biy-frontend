@@ -4,7 +4,7 @@ import '../stylesheets/dashboard.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 import React, { useState, useEffect } from 'react' 
 import GridLayout from 'react-grid-layout'
-import _, { remove } from 'lodash'
+import _ from 'lodash'
 
 export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
@@ -119,14 +119,6 @@ export default function Dashboard(props) {
                         width={viewWidth}
                         onLayoutChange={onLayoutChange}
                     >
-                        {/* <div key="1">
-                            <div>
-                                HELLO
-                            </div>
-                        </div>
-                        <div key="2">
-                        </div>
-                        <div key="3"></div> */}
                         {_.map(layout, e => createElement(e))}
                     </GridLayout>
                 </div>
