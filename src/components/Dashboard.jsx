@@ -10,10 +10,14 @@ export default function Dashboard(props) {
     const [menuActive, setMenuActive] = useState(false)
 
     const layout = [
-        { i: "1", x: 0, y: 0, w: 1, h: 2 },
-        { i: "2", x: 1, y: 0, w: 2, h: 5, minW: 3, minH: 5 },
-        { i: "3", x: 4, y: 0, w: 1, h: 2 }
+        { i: "1", x: 0, y: 0, w: 12, h: 2 },
+        { i: "2", x: 0, y: 0, w: 3, h: 7, minW: 3, minH: 5 },
+        { i: "3", x: 3, y: 0, w: 9, h: 7 }
     ];
+
+    const onLayoutChange = () => {
+
+    }
 
     const toggleMenuActive = () => {
         const menuCurrentState = menuActive
@@ -41,12 +45,18 @@ export default function Dashboard(props) {
 
     return (
         <>
-            <div className="menu-button" onClick={toggleMenuActive}>
-                <div id="menu-icon" className={menuActive === true ? ("open") : null}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+            <div>
+                <div className="menu-button" onClick={toggleMenuActive}>
+                    <div id="menu-icon" className={menuActive === true ? ("open") : null}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                    </div>
+                </div>
+                <div id="menu-content" className={menuActive === true ? ("open") : null}>
+                    <div id="menu-settings-link" className={menuActive === true ? ("open") : null}>settings.</div>
+                    <div id="menu-logout" className={menuActive === true ? ("open") : null} onClick={props.logout}>logout.</div>
                 </div>
             </div>
             <div className="dashboard-body">
@@ -58,6 +68,7 @@ export default function Dashboard(props) {
                         margin={[25, 25]}
                         rowHeight={rowHeight}
                         width={viewWidth}
+                        onLayoutChange={onLayoutChange}
                     >
                         <div key="1">
                             <div>

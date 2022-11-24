@@ -109,7 +109,6 @@ nav {
     background-color: white;
     margin: 3px;
     display: block;
-
 }
 
 #navbar-login:hover::after, #navbar-signup:hover::after, #navbar-logout:hover::after {

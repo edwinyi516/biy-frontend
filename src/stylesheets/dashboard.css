@@ -124,3 +124,62 @@
     width: 0%;
     left: 50%;
 }
+
+#menu-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    right: 0%;
+    margin: 15px;
+    background-color: #45127b;
+    font-family: "Poppins";
+    color: #ffffff;
+    z-index: 2;
+    height: 60px;
+    width: 60px;
+    opacity: 0;
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+}
+
+#menu-content.open {
+    width: 7rem;
+    height: 3rem;
+    padding: 100px 30px 50px 30px;
+    border-radius: 30px;
+    margin: 0;
+    opacity: 1
+}
+
+#menu-logout, #menu-settings-link {
+    font-weight: 500;
+    font-size: 0px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+}
+
+#menu-logout.open, #menu-settings-link.open {
+    font-size: 1.1rem;
+}
+
+#menu-logout::after, #menu-settings-link::after {
+    content: "";
+    width: 0;
+    height: 1.5px;
+    background-color: white;
+    margin: 3px;
+    display: block;
+}
+
+#menu-logout:hover::after, #menu-settings-link:hover::after {
+    width: 90%;
+    transition: width 0.3s linear;
+}
