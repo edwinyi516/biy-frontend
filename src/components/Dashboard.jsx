@@ -3,20 +3,18 @@ import '../../node_modules/react-resizable/css/styles.css'
 import '../stylesheets/dashboard.css'
 import React, { useState, useEffect } from 'react' 
 import GridLayout from 'react-grid-layout'
+import _ from 'lodash'
 
 export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
     const [rowHeight, setRowHeight] = useState()
     const [menuActive, setMenuActive] = useState(false)
-
-    const layout = [
-        { i: "1", x: 0, y: 0, w: 12, h: 2 },
-        { i: "2", x: 0, y: 0, w: 3, h: 7, minW: 3, minH: 5 },
-        { i: "3", x: 3, y: 0, w: 9, h: 7 }
-    ];
+    // const [items, setItems] = useState()
+    const [layoutLength, setLayoutLength] = useState()
+    const [layout, setLayout] = useState(props.userLayout)
 
     const onLayoutChange = () => {
-
+        
     }
 
     const toggleMenuActive = () => {
@@ -31,7 +29,46 @@ export default function Dashboard(props) {
         setRowHeight(rowHeight)
     }
 
+    const onAddItem = () => {
+        setLayout((layout) => [...layout, {
+            i: layoutLength + 1,
+            x: Infinity,
+            y: 0, // puts it at the bottom
+            w: 2,
+            h: 2
+        }])
+    }
+
+    const createElement = (e) => {
+        const removeStyle = {
+            position: "absolute",
+            right: "2px",
+            top: 0,
+            cursor: "pointer"
+          };
+        const i = e.i
+        return (
+            <div key={i} data-grid={e}>
+                {
+                    <span className="text">{i}</span>
+                }
+                <span
+                    className="remove"
+                    style={removeStyle}
+                    onClick={removeItem}
+                >
+                x
+                </span>
+            </div>
+        )
+    }
+
+    const removeItem = () => {
+
+    }
+
     useEffect(() => {
+        setLayoutLength(layout.length)
         let viewportWidth = window.innerWidth
         let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 30) / 12
         setViewWidth(viewportWidth - 50)
@@ -41,7 +78,7 @@ export default function Dashboard(props) {
         return () => {
             document.body.style.overflowY = "scroll"
         }
-    }, [])
+    }, [layout.length])
 
     return (
         <>
@@ -63,7 +100,7 @@ export default function Dashboard(props) {
                 </div>
             </div>
             <div>
-                <div className="add-button">
+                <div className="add-button" onClick={onAddItem}>
                     <div id="plus-icon">
                         <span></span>
                         <span></span>
@@ -81,14 +118,15 @@ export default function Dashboard(props) {
                         width={viewWidth}
                         onLayoutChange={onLayoutChange}
                     >
-                        <div key="1">
+                        {/* <div key="1">
                             <div>
                                 HELLO
                             </div>
                         </div>
                         <div key="2">
                         </div>
-                        <div key="3"></div>
+                        <div key="3"></div> */}
+                        {_.map(layout, e => createElement(e))}
                     </GridLayout>
                 </div>
             </div>
