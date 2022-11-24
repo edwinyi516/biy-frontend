@@ -37,6 +37,12 @@
     filter: brightness(0%) invert(1)
 }
 
+.remove {
+    zoom: .7;
+    margin: 10px 10px 0 0;
+    color: #76777a;
+}
+
 
 .menu-button {
     position: absolute;

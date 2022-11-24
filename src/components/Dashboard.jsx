@@ -4,7 +4,7 @@ import '../stylesheets/dashboard.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 import React, { useState, useEffect } from 'react' 
 import GridLayout from 'react-grid-layout'
-import _ from 'lodash'
+import _, { remove } from 'lodash'
 
 export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
@@ -32,10 +32,12 @@ export default function Dashboard(props) {
     const onAddItem = () => {
         setLayout((layout) => [...layout, {
             i: layoutLength + 1,
-            x: Infinity,
+            x: 0,
             y: 0, // puts it at the bottom
             w: 2,
-            h: 2
+            h: 2,
+            minW: 2,
+            minH: 2
         }])
     }
 
@@ -51,20 +53,16 @@ export default function Dashboard(props) {
             <div key={i} data-grid={e}>
                 {
                     <span className="text">{i}</span>
-                }
-                <span
-                    className="remove"
-                    style={removeStyle}
-                    onClick={removeItem}
-                >
-                x
+                }                
+                <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
+                    close
                 </span>
             </div>
         )
     }
 
-    const removeItem = () => {
-
+    const removeItem = (i) => {
+        setLayout( _.reject(layout, { i: i }))
     }
 
     useEffect(() => {
