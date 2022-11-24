@@ -11,7 +11,7 @@ const baseURL = 'http://localhost:8000'
 // const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
-  const [currentUser, setCurrentUser] = useState("")
+  const [currentUser, setCurrentUser] = useState()
 
   //****** FUNCTION FOR RANDOM STARS PLACEMENT ******//
   // function randomNumber(min, max) {
@@ -26,9 +26,7 @@ export default function App () {
   // console.log(result.substring(0, result.length - 1))
 
   const userLayout = [
-    { i: "1", x: 0, y: 0, w: 12, h: 2 },
-    { i: "2", x: 0, y: 0, w: 3, h: 7, minW: 3, minH: 5 },
-    { i: "3", x: 3, y: 0, w: 9, h: 7 }
+    { i: "1", x: 0, y: 0, w: 2, h: 2 }
   ];
 
   const location = useLocation()

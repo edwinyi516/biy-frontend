@@ -1,6 +1,7 @@
 import '../../node_modules/react-grid-layout/css/styles.css'
 import '../../node_modules/react-resizable/css/styles.css'
 import '../stylesheets/dashboard.css'
+import logoshort from '../assets/images/navbar-logo-short-white.png'
 import React, { useState, useEffect } from 'react' 
 import GridLayout from 'react-grid-layout'
 import _ from 'lodash'
@@ -9,13 +10,8 @@ export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
     const [rowHeight, setRowHeight] = useState()
     const [menuActive, setMenuActive] = useState(false)
-    // const [items, setItems] = useState()
     const [layoutLength, setLayoutLength] = useState()
     const [layout, setLayout] = useState(props.userLayout)
-
-    const onLayoutChange = () => {
-        
-    }
 
     const toggleMenuActive = () => {
         const menuCurrentState = menuActive
@@ -27,6 +23,10 @@ export default function Dashboard(props) {
         let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 50) / 12
         setViewWidth(viewportWidth - 50)
         setRowHeight(rowHeight)
+    }
+
+    const onLayoutChange = () => {
+        setLayout(layout)
     }
 
     const onAddItem = () => {
@@ -92,7 +92,10 @@ export default function Dashboard(props) {
                     </div>
                 </div>
                 <div id="menu-content" className={menuActive === true ? ("open") : null}>
-                    <div className="menu-user-name">Hi, {props.currentUser.first_name}!</div>
+                    <div className="menu-top">
+                        <img id="menu-logo-short" className={menuActive === true ? ("open") : null} src={logoshort} alt="logo" />
+                        <div id="menu-user-name" className={menuActive === true ? ("open") : null}>Hi, {props.currentUser.first_name}!</div>
+                    </div>
                     <div className="menu-bottom">
                         <div id="menu-settings-link" className={menuActive === true ? ("open") : null}>settings.</div>
                         <div id="menu-logout" className={menuActive === true ? ("open") : null} onClick={props.logout}>logout.</div>
