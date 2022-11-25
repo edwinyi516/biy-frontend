@@ -25,13 +25,49 @@ export default function Dashboard(props) {
         setRowHeight(rowHeight)
     }
 
-    const onLayoutChange = () => {
+    const onLayoutChange = (layout) => {
+        console.log(layout)
+        const url = props.baseURL + '/layout/update'
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({
+                layout_data: layout
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+        .then((response) => {
+            if (response.status === 201) {
+                console.log('Update successful')
+                return
+            }
+        })
+        .catch((err) => {
+            console.log('Error => ', err)
+          })
         setLayout(layout)
     }
 
     const onAddItem = () => {
+        let nextNumber = 1
+        const iOfLayout = layout.map(element => element.i)
+        const sortedArray = iOfLayout.sort()
+        const findNextNumber = () => {
+            for (let index = 0; index < sortedArray.length; index++) {
+                if (sortedArray[index] !== index + 1) {
+                    nextNumber = index + 1
+                    return nextNumber
+                } else {
+                    nextNumber = sortedArray[sortedArray.length - 1] + 1
+                }
+            }
+            console.log(nextNumber)
+            return nextNumber
+        }
         setLayout((layout) => [...layout, {
-            i: layoutLength + 1,
+            i: findNextNumber(),
             x: 0,
             y: 0, // puts it at the bottom
             w: 2,

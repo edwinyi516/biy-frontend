@@ -14,6 +14,10 @@ export default function App () {
   const [currentUser, setCurrentUser] = useState()
   const [userLayout, setUserLayout] = useState()
 
+  // For eval error
+  const False = false
+  const None = null
+
   //****** FUNCTION FOR RANDOM STARS PLACEMENT ******//
   // function randomNumber(min, max) {
   //     return Math.floor(Math.random() * (max - min + 1)) + min
@@ -65,9 +69,7 @@ export default function App () {
       }
     })
     .then(data => {
-      console.log(data.data)
       let parsedLayout = eval(data.data.layout_data)
-      console.log(parsedLayout)
       setUserLayout(parsedLayout)
       return
     })
@@ -112,7 +114,7 @@ export default function App () {
             currentUser && userLayout ? (
               <>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                <Route path="/dashboard" element={<Dashboard currentUser={currentUser} logout={logout} userLayout={userLayout}/>} />
+                <Route path="/dashboard" element={<Dashboard baseURL={baseURL} currentUser={currentUser} logout={logout} userLayout={userLayout} />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </>
             ) : (
