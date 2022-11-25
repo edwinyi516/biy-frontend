@@ -102,6 +102,21 @@ export default function Dashboard(props) {
         setLayout( _.reject(layout, { i: i }))
     }
 
+    const openGridItemModal = () => {
+        document.querySelector("#create-grid-item-modal").style.display = "block"
+    }
+
+    const closeGridItemModal = () => {
+        document.querySelector("#create-grid-item-modal").style.display = "none"
+    }
+
+    window.onclick = (e) => {
+        let modal = document.querySelector("#create-grid-item-modal")
+        if (e.target == modal) {
+            modal.style.display = "none"
+        }
+    }
+
     useEffect(() => {
         let viewportWidth = window.innerWidth
         let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 30) / 12
@@ -115,6 +130,7 @@ export default function Dashboard(props) {
     }, [])
 
     return (
+        
         <>
             <div>
                 <div className="menu-button" onClick={toggleMenuActive}>
@@ -138,10 +154,28 @@ export default function Dashboard(props) {
                 <div className="menu-background-fill" onClick={toggleMenuActive} style={menuActive === true ? ({display: "block"}) : ({display: "none"})}></div>
             </div>
             <div>
-                <div className="add-button" onClick={onAddItem}>
+                <div className="add-button" onClick={openGridItemModal}>
                     <div id="plus-icon">
                         <span></span>
                         <span></span>
+                    </div>
+                </div>
+                <div id="create-grid-item-modal" className="create-grid-item-modal-class">
+                    <div className="create-grid-item-modal-content">
+                        <span className="material-symbols-rounded close-create-grid-item-modal" onClick={closeGridItemModal} style={{
+                            position: "absolute",
+                            right: "2px",
+                            top: 0,
+                            cursor: "pointer"
+                        }}>
+                            close
+                        </span>
+                        <div id="create-new-grid-item-text">Create New Grid Item</div>
+                        <div className="create-grid-item-modal-dropdowns">DROPDOWNS</div>
+                        <div className="create-grid-item-modal-buttons">
+                            <button id="create-grid-item-close-button" onClick={closeGridItemModal}>Close</button>
+                            <button id="create-grid-item-button" onClick={() => {onAddItem(); closeGridItemModal();}}>Create New Item</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,8 +184,8 @@ export default function Dashboard(props) {
                     <GridLayout
                         className="layout"
                         layout={layout}
-                        cols={12}
-                        margin={[25, 25]}
+                        cols={10}
+                        margin={[35, 35]}
                         rowHeight={rowHeight}
                         width={viewWidth}
                         onLayoutChange={onLayoutChange}
