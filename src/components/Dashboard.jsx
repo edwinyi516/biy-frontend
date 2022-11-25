@@ -135,6 +135,7 @@ export default function Dashboard(props) {
                         <div id="menu-logout" className={menuActive === true ? ("open") : null} onClick={props.logout}>logout.</div>
                     </div>
                 </div>
+                <div className="menu-background-fill" onClick={toggleMenuActive} style={menuActive === true ? ({display: "block"}) : ({display: "none"})}></div>
             </div>
             <div>
                 <div className="add-button" onClick={onAddItem}>
