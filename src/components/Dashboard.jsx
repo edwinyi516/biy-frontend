@@ -11,6 +11,9 @@ export default function Dashboard(props) {
     const [rowHeight, setRowHeight] = useState()
     const [menuActive, setMenuActive] = useState(false)
     const [layout, setLayout] = useState(props.userLayout)
+    const [gridItemModalActive, setGridItemModalActive] = useState(false)
+
+    const [categoryDropdownValue, setCategoryDropdownValue] = useState()
 
     const toggleMenuActive = () => {
         const menuCurrentState = menuActive
@@ -103,17 +106,29 @@ export default function Dashboard(props) {
     }
 
     const openGridItemModal = () => {
+        setGridItemModalActive(true)
         document.querySelector("#create-grid-item-modal").style.display = "block"
     }
 
     const closeGridItemModal = () => {
+        setCategoryDropdownValue("")
+
+        document.querySelector("#new-grid-item-form").reset()
+        setGridItemModalActive(false)
         document.querySelector("#create-grid-item-modal").style.display = "none"
+        
     }
 
     window.onclick = (e) => {
         let modal = document.querySelector("#create-grid-item-modal")
         if (e.target == modal) {
             modal.style.display = "none"
+        }
+    }
+
+    const setDropdownValue = (e) => {
+        if (e.target = document.querySelector("#category-dropdown")) {
+            setCategoryDropdownValue(e.target.value)
         }
     }
 
@@ -170,8 +185,44 @@ export default function Dashboard(props) {
                         }}>
                             close
                         </span>
-                        <div id="create-new-grid-item-text">Create New Grid Item</div>
-                        <div className="create-grid-item-modal-dropdowns">DROPDOWNS</div>
+                        <div id="create-new-grid-item-text">Choose new module content</div>
+                        <div className="create-grid-item-modal-dropdowns">
+                            <form id="new-grid-item-form" className="new-grid-item-form">
+                                <div className="new-grid-item-form-selections">
+                                    <label for="category-dropdown">Category:&nbsp;&nbsp;</label>
+                                    <select id="category-dropdown" name="category-dropdown" onChange={setDropdownValue}>
+                                        <option value="" default selected>Select one...</option>                                        
+                                        <option value="transactions">Transactions</option>
+                                        <option value="bills">Bills</option>
+                                        <option value="goals">Goals</option>
+                                    </select>
+                                </div>
+                                {
+                                    categoryDropdownValue === "transactions" ? (
+                                        <div className="new-grid-item-form-selections">
+                                            <label for="transaction-type-dropdown">Type:&nbsp;&nbsp;</label>
+                                            <select id="transaction-type-dropdown" name="transaction-type-dropdown">
+                                                <option value="" selected>Select one...</option>
+                                                <option value="income" >Income</option>
+                                                <option value="expense" >Expense</option>
+                                            </select>
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    categoryDropdownValue === "bills" ? (
+                                        <div className="new-grid-item-form-selections">
+                                            <label for="bills-dropdown">Frequency:&nbsp;&nbsp;</label>
+                                            <select id="bills-dropdown" name="bills-dropdown">
+                                                <option value="" selected>Select one...</option>
+                                                <option value="monthly" >Monthly</option>
+                                                <option value="annual" >Annual</option>
+                                            </select>
+                                        </div>
+                                    ) : null
+                                }
+                            </form>
+                        </div>
                         <div className="create-grid-item-modal-buttons">
                             <button id="create-grid-item-close-button" onClick={closeGridItemModal}>Close</button>
                             <button id="create-grid-item-button" onClick={() => {onAddItem(); closeGridItemModal();}}>Create New Item</button>

@@ -137,7 +137,7 @@
 }
 
 .login-remember-me input[type="checkbox"]:focus {
-    outline: max(2px, 0.15em) solid #ffffff20;
+    outline: max(2px, 0.15em) solid #ffffff80;
     outline-offset: max(2px, 0.15em);
 }
 
