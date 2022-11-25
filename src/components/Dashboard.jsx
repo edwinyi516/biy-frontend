@@ -10,7 +10,6 @@ export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
     const [rowHeight, setRowHeight] = useState()
     const [menuActive, setMenuActive] = useState(false)
-    const [layoutLength, setLayoutLength] = useState()
     const [layout, setLayout] = useState(props.userLayout)
 
     const toggleMenuActive = () => {
@@ -51,25 +50,33 @@ export default function Dashboard(props) {
     }
 
     const onAddItem = () => {
-        let nextNumber = 1
+        let nextNumber
         const iOfLayout = layout.map(element => element.i)
-        const sortedArray = iOfLayout.sort()
+        const sortedArray = iOfLayout.sort((a, b) => {
+            return a - b
+        })
+        console.log(sortedArray)
         const findNextNumber = () => {
-            for (let index = 0; index < sortedArray.length; index++) {
-                if (sortedArray[index] !== index + 1) {
-                    nextNumber = index + 1
-                    return nextNumber
-                } else {
-                    nextNumber = sortedArray[sortedArray.length - 1] + 1
+            if ((sortedArray.length === 0) || (parseInt(sortedArray[0]) !== 1)) {
+                console.log("hitting very first if")
+                return nextNumber = 1
+            }
+            else {
+                for (let index = 0; index < sortedArray.length; index++) {
+                    if ((parseInt(sortedArray[index]) + 1) !== (parseInt(sortedArray[index + 1]))) {
+                        console.log("if")
+                        nextNumber = (parseInt(sortedArray[index]) + 1)
+                        console.log('next in if', nextNumber)
+                        return nextNumber
+                    }
                 }
             }
             console.log(nextNumber)
-            return nextNumber
         }
         setLayout((layout) => [...layout, {
             i: findNextNumber(),
             x: 0,
-            y: 0, // puts it at the bottom
+            y: Infinity, // puts it at the bottom
             w: 2,
             h: 2,
             minW: 2,
@@ -102,7 +109,6 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
-        setLayoutLength(layout.length)
         let viewportWidth = window.innerWidth
         let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 30) / 12
         setViewWidth(viewportWidth - 50)
@@ -112,7 +118,7 @@ export default function Dashboard(props) {
         return () => {
             document.body.style.overflowY = "scroll"
         }
-    }, [layout.length])
+    }, [])
 
     return (
         <>
