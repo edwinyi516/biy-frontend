@@ -7,6 +7,7 @@ import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import NavBar from './components/NavBar'
 
+//CHECK FOR DEPLOYMENT
 const baseURL = 'http://localhost:8000'
 // const baseURL = 'https://biy-backend-server.herokuapp.com'
 

@@ -25,7 +25,6 @@ export default function Dashboard(props) {
     }
 
     const onLayoutChange = (layout) => {
-        console.log(layout)
         const url = props.baseURL + '/layout/update'
         fetch(url, {
             method: 'PUT',
@@ -55,23 +54,18 @@ export default function Dashboard(props) {
         const sortedArray = iOfLayout.sort((a, b) => {
             return a - b
         })
-        console.log(sortedArray)
         const findNextNumber = () => {
             if ((sortedArray.length === 0) || (parseInt(sortedArray[0]) !== 1)) {
-                console.log("hitting very first if")
                 return nextNumber = 1
             }
             else {
                 for (let index = 0; index < sortedArray.length; index++) {
                     if ((parseInt(sortedArray[index]) + 1) !== (parseInt(sortedArray[index + 1]))) {
-                        console.log("if")
                         nextNumber = (parseInt(sortedArray[index]) + 1)
-                        console.log('next in if', nextNumber)
                         return nextNumber
                     }
                 }
             }
-            console.log(nextNumber)
         }
         setLayout((layout) => [...layout, {
             i: findNextNumber(),
