@@ -301,10 +301,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin: auto;
-    margin-top: 12.5%;
-    height: 400px;
-    width: 500px;
+    margin: 17.5% auto auto auto;
+    height: 22rem;
+    width: 28rem;
     animation: animatetop 0.5s;
     border-radius: 20px;
     overflow: hidden;
@@ -325,11 +324,11 @@
 
 .close-create-grid-item-modal {
     color: #ffffff;
-    margin: 15px 15px 0 0;
+    margin: 1rem 1rem 0 0;
 }
 
 #create-new-grid-item-text {
-    margin-top: 25px;
+    margin-top: 2rem;
     font-family: Gramatika;
     font-size: 1.5rem;
     color: #ffffff;
@@ -339,16 +338,17 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    margin: 0 3rem 1.5rem 0;
+    align-items: center;
+    margin: 0 4rem 2rem 0;
 }
 
 #create-grid-item-close-button {
     background-color: #593a7c;
     color: #ffffff;
     font-family: Gramatika;
-    font-size: .8rem;
+    font-size: .9rem;
     padding: .4rem .8rem;
-    margin-right: 10px;
+    margin-right: 1rem;
     border-radius: 80px;
     letter-spacing: 1px;
 }
@@ -357,10 +357,15 @@
     background-color: #310b59;
     color: #ffffff;
     font-family: Gramatika;
-    font-size: .8rem;
+    font-size: .9rem;
     padding: .4rem .8rem;
     border-radius: 80px;
     letter-spacing: 1px;
+}
+
+#create-grid-item-button:disabled {
+    background: #4e4e4e;
+    color: #b3b3b3;
 }
 
 .create-grid-item-modal-dropdowns {
@@ -381,7 +386,7 @@
     font-family: Gramatika;
     color: #ffffff;
     font-size: 1rem;
-    margin: 10px 0;
+    margin: 1rem 0;
 }
 
 .new-grid-item-form-selections {
@@ -389,7 +394,7 @@
     justify-content: flex-end;
     align-items: center;
     width: 100%;
-    margin: 5px 0;
+    margin: .5rem 0;
 }
 
 .new-grid-item-form-selections > select {

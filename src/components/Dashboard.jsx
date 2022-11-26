@@ -11,9 +11,12 @@ export default function Dashboard(props) {
     const [rowHeight, setRowHeight] = useState()
     const [menuActive, setMenuActive] = useState(false)
     const [layout, setLayout] = useState(props.userLayout)
-    const [gridItemModalActive, setGridItemModalActive] = useState(false)
 
-    const [categoryDropdownValue, setCategoryDropdownValue] = useState()
+    const [categoryStateValue, setCategoryStateValue] = useState()
+    const [transactionTypeStateValue, setTransactionTypeStateValue] = useState()
+    const [frequencyStateValue, setFrequencyStateValue] = useState()
+    const [intervalStateValue, setIntervalStateValue] = useState()
+    const [createModuleSubmitButtonDisabled, setCreateModuleSubmitButtonDisabled] = useState(true)
 
     const toggleMenuActive = () => {
         const menuCurrentState = menuActive
@@ -106,30 +109,54 @@ export default function Dashboard(props) {
     }
 
     const openGridItemModal = () => {
-        setGridItemModalActive(true)
         document.querySelector("#create-grid-item-modal").style.display = "block"
     }
 
     const closeGridItemModal = () => {
-        setCategoryDropdownValue("")
+        setCategoryStateValue()
+        setTransactionTypeStateValue()
+        setFrequencyStateValue()
+        setIntervalStateValue()
+        setCreateModuleSubmitButtonDisabled(true)
 
         document.querySelector("#new-grid-item-form").reset()
-        setGridItemModalActive(false)
         document.querySelector("#create-grid-item-modal").style.display = "none"
-        
     }
 
     window.onclick = (e) => {
         let modal = document.querySelector("#create-grid-item-modal")
         if (e.target == modal) {
-            modal.style.display = "none"
+            closeGridItemModal()
         }
     }
 
-    const setDropdownValue = (e) => {
-        if (e.target = document.querySelector("#category-dropdown")) {
-            setCategoryDropdownValue(e.target.value)
+    const setCategoryValue = (e) => {
+        setCategoryStateValue(e.target.value)
+        setCreateModuleSubmitButtonDisabled(true)
+        setTransactionTypeStateValue()
+        setFrequencyStateValue()
+        if (e.target.value === "goals") {
+            setCreateModuleSubmitButtonDisabled(false)
         }
+    }
+
+    const setTransactionTypeValue = (e) => {
+        setTransactionTypeStateValue(e.target.value)
+        setIntervalStateValue()
+        if (document.getElementById("interval-dropdown")) {
+            document.getElementById("interval-dropdown").selectedIndex = 0
+        }
+        setCreateModuleSubmitButtonDisabled(true)
+    }
+
+    const setFrequencyValue = (e) => {
+        setFrequencyStateValue(e.target.value)
+        setCreateModuleSubmitButtonDisabled(false)
+    }
+
+    const setIntervalValue = (e) => {
+        setIntervalStateValue(e.target.value)
+        setCreateModuleSubmitButtonDisabled(false)
     }
 
     useEffect(() => {
@@ -187,36 +214,63 @@ export default function Dashboard(props) {
                         </span>
                         <div id="create-new-grid-item-text">Choose new module content</div>
                         <div className="create-grid-item-modal-dropdowns">
-                            <form id="new-grid-item-form" className="new-grid-item-form">
+                            <form id="new-grid-item-form" className="new-grid-item-form" onSubmit={(e) => {
+                                e.preventDefault()
+                                if (e.target.category.value === "transactions") {
+                                    console.log(e.target.category.value)
+                                    console.log(e.target.transactiontype.value)
+                                    console.log(e.target.interval.value)
+                                } else if (e.target.category.value === "bills") {
+                                    console.log(e.target.category.value)
+                                    console.log(e.target.frequency.value)
+                                } else if (e.target.category.value === "goals") {
+                                    console.log(e.target.category.value)
+                                }
+                            }}>
                                 <div className="new-grid-item-form-selections">
-                                    <label for="category-dropdown">Category:&nbsp;&nbsp;</label>
-                                    <select id="category-dropdown" name="category-dropdown" onChange={setDropdownValue}>
-                                        <option value="" default selected>Select one...</option>                                        
+                                    <label htmlFor="category-dropdown">Category:&nbsp;&nbsp;</label>
+                                    <select id="category-dropdown" name="category" onChange={setCategoryValue}>
+                                        <option value="" default defaultValue>Select one...</option>
                                         <option value="transactions">Transactions</option>
                                         <option value="bills">Bills</option>
                                         <option value="goals">Goals</option>
                                     </select>
                                 </div>
                                 {
-                                    categoryDropdownValue === "transactions" ? (
+                                    categoryStateValue === "transactions" ? (
                                         <div className="new-grid-item-form-selections">
-                                            <label for="transaction-type-dropdown">Type:&nbsp;&nbsp;</label>
-                                            <select id="transaction-type-dropdown" name="transaction-type-dropdown">
-                                                <option value="" selected>Select one...</option>
+                                            <label htmlFor="transaction-type-dropdown">Transaction type:&nbsp;&nbsp;</label>
+                                            <select id="transaction-type-dropdown" name="transactiontype" onChange={setTransactionTypeValue}>
+                                                <option value="" defaultValue>Select one...</option>
                                                 <option value="income" >Income</option>
-                                                <option value="expense" >Expense</option>
+                                                <option value="expenses" >Expenses</option>
                                             </select>
                                         </div>
                                     ) : null
                                 }
                                 {
-                                    categoryDropdownValue === "bills" ? (
+                                    categoryStateValue === "bills" ? (
                                         <div className="new-grid-item-form-selections">
-                                            <label for="bills-dropdown">Frequency:&nbsp;&nbsp;</label>
-                                            <select id="bills-dropdown" name="bills-dropdown">
-                                                <option value="" selected>Select one...</option>
+                                            <label htmlFor="frequency-dropdown">Frequency:&nbsp;&nbsp;</label>
+                                            <select id="frequency-dropdown" name="frequency" onChange={setFrequencyValue}>
+                                                <option value="" defaultValue>Select one...</option>
+                                                <option value="weekly" >Weekly</option>
                                                 <option value="monthly" >Monthly</option>
                                                 <option value="annual" >Annual</option>
+                                            </select>
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    (transactionTypeStateValue === "income" || transactionTypeStateValue === "expenses") && categoryStateValue === "transactions" ? (
+                                        <div className="new-grid-item-form-selections">
+                                            <label htmlFor="interval-dropdown">Interval:&nbsp;&nbsp;</label>
+                                            <select id="interval-dropdown" name="interval" onChange={setIntervalValue}>
+                                                <option value="" defaultValue>Select one...</option>
+                                                <option value="week" >Week</option>
+                                                <option value="month" >Month</option>
+                                                <option value="year" >Year</option>
+                                                <option value="all" >View all</option>
                                             </select>
                                         </div>
                                     ) : null
@@ -225,7 +279,8 @@ export default function Dashboard(props) {
                         </div>
                         <div className="create-grid-item-modal-buttons">
                             <button id="create-grid-item-close-button" onClick={closeGridItemModal}>Close</button>
-                            <button id="create-grid-item-button" onClick={() => {onAddItem(); closeGridItemModal();}}>Create New Item</button>
+                            {/* <button id="create-grid-item-button" onClick={() => {onAddItem(); closeGridItemModal();}}>Create New Item</button> */}
+                            <button id="create-grid-item-button" type="submit" form="new-grid-item-form" disabled={createModuleSubmitButtonDisabled}>Create New Item</button>
                         </div>
                     </div>
                 </div>
