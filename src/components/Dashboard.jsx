@@ -212,7 +212,7 @@ export default function Dashboard(props) {
                         }}>
                             close
                         </span>
-                        <div id="create-new-grid-item-text">Choose new module content</div>
+                        <div id="create-new-grid-item-text">Create new module</div>
                         <div className="create-grid-item-modal-dropdowns">
                             <form id="new-grid-item-form" className="new-grid-item-form" onSubmit={(e) => {
                                 e.preventDefault()
@@ -280,7 +280,7 @@ export default function Dashboard(props) {
                         <div className="create-grid-item-modal-buttons">
                             <button id="create-grid-item-close-button" onClick={closeGridItemModal}>Close</button>
                             {/* <button id="create-grid-item-button" onClick={() => {onAddItem(); closeGridItemModal();}}>Create New Item</button> */}
-                            <button id="create-grid-item-button" type="submit" form="new-grid-item-form" disabled={createModuleSubmitButtonDisabled}>Create New Item</button>
+                            <button id="create-grid-item-button" type="submit" form="new-grid-item-form" disabled={createModuleSubmitButtonDisabled}>Add module</button>
                         </div>
                     </div>
                 </div>
