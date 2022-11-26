@@ -14,8 +14,6 @@ export default function Dashboard(props) {
 
     const [categoryStateValue, setCategoryStateValue] = useState()
     const [transactionTypeStateValue, setTransactionTypeStateValue] = useState()
-    const [frequencyStateValue, setFrequencyStateValue] = useState()
-    const [intervalStateValue, setIntervalStateValue] = useState()
     const [createModuleSubmitButtonDisabled, setCreateModuleSubmitButtonDisabled] = useState(true)
 
     const toggleMenuActive = () => {
@@ -115,8 +113,6 @@ export default function Dashboard(props) {
     const closeGridItemModal = () => {
         setCategoryStateValue()
         setTransactionTypeStateValue()
-        setFrequencyStateValue()
-        setIntervalStateValue()
         setCreateModuleSubmitButtonDisabled(true)
 
         document.querySelector("#new-grid-item-form").reset()
@@ -134,7 +130,6 @@ export default function Dashboard(props) {
         setCategoryStateValue(e.target.value)
         setCreateModuleSubmitButtonDisabled(true)
         setTransactionTypeStateValue()
-        setFrequencyStateValue()
         if (e.target.value === "goals") {
             setCreateModuleSubmitButtonDisabled(false)
         }
@@ -142,7 +137,6 @@ export default function Dashboard(props) {
 
     const setTransactionTypeValue = (e) => {
         setTransactionTypeStateValue(e.target.value)
-        setIntervalStateValue()
         if (document.getElementById("interval-dropdown")) {
             document.getElementById("interval-dropdown").selectedIndex = 0
         }
@@ -150,12 +144,10 @@ export default function Dashboard(props) {
     }
 
     const setFrequencyValue = (e) => {
-        setFrequencyStateValue(e.target.value)
         setCreateModuleSubmitButtonDisabled(false)
     }
 
     const setIntervalValue = (e) => {
-        setIntervalStateValue(e.target.value)
         setCreateModuleSubmitButtonDisabled(false)
     }
 
