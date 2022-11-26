@@ -89,8 +89,10 @@ export default function App () {
   }
 
   useEffect(() => {
-    getCurrentUser()
-    getUserLayout()
+    if (location.pathname ==="/dashboard") {
+      getCurrentUser()
+      getUserLayout()
+    }
   }, [])
 
   return (
