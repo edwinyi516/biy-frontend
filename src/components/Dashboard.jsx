@@ -10,6 +10,7 @@ export default function Dashboard(props) {
     const [viewWidth, setViewWidth] = useState()
     const [rowHeight, setRowHeight] = useState()
     const [menuActive, setMenuActive] = useState(false)
+    const [addActive, setAddActive] = useState(false)
     const [layout, setLayout] = useState(props.userLayout)
 
     const [categoryStateValue, setCategoryStateValue] = useState()
@@ -19,6 +20,11 @@ export default function Dashboard(props) {
     const toggleMenuActive = () => {
         const menuCurrentState = menuActive
         setMenuActive(!menuCurrentState)
+    }
+
+    const toggleAddActive = () => {
+        const addCurrentState = addActive
+        setAddActive(!addCurrentState)
     }
 
     const handleResize = () => {
@@ -188,12 +194,19 @@ export default function Dashboard(props) {
                 <div className="menu-background-fill" onClick={toggleMenuActive} style={menuActive === true ? ({display: "block"}) : ({display: "none"})}></div>
             </div>
             <div>
-                <div className="add-button" onClick={openGridItemModal}>
-                    <div id="plus-icon">
+                <div id="add-button" onClick={toggleAddActive}>
+                    <div id="plus-icon" className={addActive === true ? ("open") : null}>
                         <span></span>
                         <span></span>
                     </div>
                 </div>
+                <div id="add-button-content" className={addActive === true ? ("open") : null}>
+                    <div id="new-entry-link" className={addActive === true ? ("open") : null}>new entry.</div>
+                    <div id="new-module-link" className={addActive === true ? ("open") : null} onClick={openGridItemModal}>new module.</div>
+                </div>
+                <div className="add-button-background-fill" onClick={toggleAddActive} style={addActive === true ? ({display: "block"}) : ({display: "none"})}></div>
+            </div>
+            <div>                
                 <div id="create-grid-item-modal" className="create-grid-item-modal-class">
                     <div className="create-grid-item-modal-content">
                         <span className="material-symbols-rounded close-create-grid-item-modal" onClick={closeGridItemModal} style={{
