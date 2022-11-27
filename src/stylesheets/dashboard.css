@@ -410,3 +410,56 @@
     outline: max(1px, 0.15em) solid #ffffff80;
     outline-offset: max(1px, 0.15em);
 }
+
+.module-body::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.module-body::-webkit-scrollbar-track {
+background: #4c3965;
+align-self: center;
+border-radius: 10px;
+}
+
+.module-body::-webkit-scrollbar-thumb {
+background: #451478; 
+border-radius: 10px;
+}
+
+.module-body::-webkit-scrollbar-thumb:hover {
+background: #371060; 
+}
+
+.bills-module-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bills-module-title {
+    font-family: Gramatika;
+    font-size: 2rem;
+    margin-top: 1.5rem;
+}
+
+.bills-module-body {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin: 1rem 0 3rem 0;
+    font-family: Gramatika;
+}
+
+.bills-body-data {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 1rem 2rem;
+}

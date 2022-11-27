@@ -288,7 +288,69 @@ export default function Dashboard(props) {
                         width={viewWidth}
                         onLayoutChange={onLayoutChange}
                     >
-                        {_.map(layout, e => createElement(e))}
+                        {/* {_.map(layout, e => createElement(e))} */}
+                        <div key={1}>          
+                            <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem()}>
+                                close
+                            </span>
+                            <div className="bills-module-block">
+                                <div className="bills-module-title">Bills</div>
+                                <div className="module-body bills-module-body">
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                    <div className="bills-body-data">
+                                        <div className="bills-body-data-text">Text</div>
+                                        <div className="bills-body-data-details">Details</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </GridLayout>
                 </div>
             </div>
