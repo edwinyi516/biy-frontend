@@ -8,12 +8,13 @@ import Dashboard from './components/Dashboard'
 import NavBar from './components/NavBar'
 
 //CHECK FOR DEPLOYMENT
-// const baseURL = 'http://localhost:8000'
-const baseURL = 'https://biy-backend-server.herokuapp.com'
+const baseURL = 'http://localhost:8000'
+// const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
   const [currentUser, setCurrentUser] = useState()
   const [userLayout, setUserLayout] = useState()
+  const [userModuleData, setUserModuleData] = useState()
 
   // For eval error
   const False = false
@@ -58,6 +59,27 @@ export default function App () {
     })
   }
 
+  const getUserModuleData = () => {
+      const url = baseURL
+      fetch(url + "/module/", {
+          credentials: 'include'
+      })
+      .then(res => {
+          if(res.status === 200) {
+              return res.json()
+          } else {
+              return {}
+          }
+      })
+      .then(data => {
+          setUserModuleData(data.data)
+          return
+      })
+      .catch((err) => {
+          console.log('Error => ', err)
+      })
+  }
+
   const getUserLayout = () => {
     fetch(baseURL + "/layout/", {
       credentials: "include"
@@ -72,6 +94,7 @@ export default function App () {
     .then(data => {
       let parsedLayout = eval(data.data.layout_data)
       setUserLayout(parsedLayout)
+      console.log(parsedLayout)
       return
     })
     .catch((err) => {
@@ -89,10 +112,11 @@ export default function App () {
   }
 
   useEffect(() => {
-    if (location.pathname ==="/dashboard") {
+
       getCurrentUser()
       getUserLayout()
-    }
+      getUserModuleData()
+
   }, [])
 
   return (
@@ -114,16 +138,16 @@ export default function App () {
         }
         <Routes>
           {
-            currentUser && userLayout ? (
+            currentUser && userLayout && userModuleData ? (
               <>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                <Route path="/dashboard" element={<Dashboard baseURL={baseURL} currentUser={currentUser} logout={logout} userLayout={userLayout} />} />
+                <Route path="/dashboard" element={<Dashboard baseURL={baseURL} currentUser={currentUser} userModuleData={userModuleData} logout={logout} userLayout={userLayout} />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </>
             ) : (
               <>
                 <Route path="/" element={<Home currentUser={currentUser} />} />
-                <Route path="/login" element={<Login baseURL={baseURL} getCurrentUser={getCurrentUser} getUserLayout={getUserLayout} />} />
+                <Route path="/login" element={<Login baseURL={baseURL} getCurrentUser={getCurrentUser} getUserLayout={getUserLayout} getUserModuleData={getUserModuleData}/>} />
                 <Route path="/signup" element={<Signup baseURL={baseURL} />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </>

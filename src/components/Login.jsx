@@ -4,7 +4,7 @@ import '../stylesheets/login.css'
 import logoshort from '../assets/images/navbar-logo-short-white.png'
 
 export default function Login(props) {
-    const initialValues = { email: "", password: "", remember: false }
+    const initialValues = { email: "", password: "", remember: 0 }
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
@@ -30,6 +30,7 @@ export default function Login(props) {
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && submitted) {
             setSubmitted(true)
+            console.log(formValues.remember)
             fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -51,6 +52,7 @@ export default function Login(props) {
                 if (response.status === 200) {
                     props.getCurrentUser()
                     props.getUserLayout()
+                    props.getUserModuleData()
                     navigate("/dashboard")
                 }
             })
@@ -87,7 +89,7 @@ export default function Login(props) {
                             }
                         </div>
                         <div className="login-remember-me">
-                            <input type="checkbox" id="remember" name="remember" onChange={handleChange} value="True"></input>
+                            <input type="checkbox" id="remember" name="remember" onChange={handleChange} value={formValues.remember}></input>
                             <label htmlFor="remember" id="remember-me-label">Remember me</label>
                         </div>
                         <button type="submit" disabled={!formValues.email || !formValues.password ||submitted}>Login</button>

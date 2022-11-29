@@ -12,10 +12,24 @@ export default function Dashboard(props) {
     const [menuActive, setMenuActive] = useState(false)
     const [addActive, setAddActive] = useState(false)
     const [layout, setLayout] = useState(props.userLayout)
+    const [moduleData, setModuleData] = useState(props.userModuleData)
+
+    const [createNewEntrySubmitDisabled, setCreateNewEntrySubmitDisabled] = useState(true)
 
     const [categoryStateValue, setCategoryStateValue] = useState()
     const [transactionTypeStateValue, setTransactionTypeStateValue] = useState()
     const [createModuleSubmitButtonDisabled, setCreateModuleSubmitButtonDisabled] = useState(true)
+
+    const [entryTypeStateValue, setEntryTypeStateValue] = useState()
+    const [incomeOrExpenseRecurringStateValue, setIncomeOrExpenseRecurringStateValue] = useState(false)
+    const [billRecurringStateValue, setBillRecurringStateValue] = useState(false)
+    const [incomeOrExpenseFrequencyStateValue, setIncomeOrExpenseFrequencyStateValue] = useState("")
+    const [incomeOrExpenseDateStateValue, setIncomeOrExpenseDateStateValue] = useState(null)
+    const [incomeOrExpenseAmountStateValue, setIncomeOrExpenseAmountStateValue] = useState(0)
+    const [billFrequencyStateValue, setBillFrequencyStateValue] = useState()
+    const [billDateStateValue, setBillDateStateValue] = useState(null)
+    const [goalNameStateValue, setGoalNameStateValue] = useState()
+    const [goalAmountStateValue, setGoalAmountStateValue] = useState()
 
     const toggleMenuActive = () => {
         const menuCurrentState = menuActive
@@ -36,6 +50,7 @@ export default function Dashboard(props) {
 
     const onLayoutChange = (layout) => {
         const url = props.baseURL + '/layout/update'
+        console.log('THIS IS LAYOUT DATA BEING SENT TO BACKEND', layout)
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
@@ -54,12 +69,16 @@ export default function Dashboard(props) {
         })
         .catch((err) => {
             console.log('Error => ', err)
-          })
+        })
         setLayout(layout)
     }
 
-    const onAddItem = () => {
+    const onAddItem = (e) => {
+        e.preventDefault()
+        console.log("Starting on add item")
+        const url = props.baseURL
         let nextNumber
+        let moduleBody
         const iOfLayout = layout.map(element => element.i)
         const sortedArray = iOfLayout.sort((a, b) => {
             return a - b
@@ -71,13 +90,61 @@ export default function Dashboard(props) {
             else {
                 for (let index = 0; index < sortedArray.length; index++) {
                     if ((parseInt(sortedArray[index]) + 1) !== (parseInt(sortedArray[index + 1]))) {
-                        nextNumber = (parseInt(sortedArray[index]) + 1)
-                        return nextNumber
+                        return nextNumber = (parseInt(sortedArray[index]) + 1)
                     }
                 }
             }
         }
-        setLayout((layout) => [...layout, {
+        if (e.target.category.value === "transactions") {
+            moduleBody = {
+                user: props.currentUser.id,
+                i_value: findNextNumber(),
+                category: e.target.category.value,
+                transactiontype: e.target.transactiontype.value,
+                interval: e.target.interval.value,
+                frequency: ""
+            }
+        } else if (e.target.category.value === "bills") {
+            moduleBody = {
+                user: props.currentUser.id,
+                i_value: findNextNumber(),
+                category: e.target.category.value,
+                transactiontype: "",
+                frequency: e.target.frequency.value,
+                interval: ""
+            }
+        } else if (e.target.category.value === "goals") {
+            moduleBody = {
+                user: props.currentUser.id,
+                i_value: findNextNumber(),
+                category: e.target.category.value,
+                transactiontype: "",
+                frequency: "",
+                interval: ""
+            }
+        }
+        fetch(url + '/module/new', {
+            method: 'POST',
+            body: JSON.stringify(
+                moduleBody
+            ),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+        .then((response) => {
+            if (response.status === 201) {
+                console.log('New module created')
+                return
+            }
+        })
+        .catch((err) => {
+            console.log('Error => ', err)
+        })
+        console.log('next number', nextNumber)
+        console.log("starting setLayout", layout)
+        setLayout((previousLayout) => [...previousLayout, {
             i: findNextNumber(),
             x: 0,
             y: Infinity, // puts it at the bottom
@@ -86,20 +153,27 @@ export default function Dashboard(props) {
             minW: 2,
             minH: 2
         }])
+        setModuleData((previousData) => [...previousData, 
+            moduleBody
+        ])
+        closeGridItemModal()
     }
 
     const createElement = (e) => {
+        const i = e.i
+        let moduleI = ((e.i) - 1)
+        console.log('moduleI', moduleI)
+        console.log('moduleI indexed', moduleData[moduleI])
         const removeStyle = {
             position: "absolute",
             right: "2px",
             top: 0,
             cursor: "pointer"
-          };
-        const i = e.i
+            };
         return (
             <div key={i} data-grid={e}>
                 {
-                    <span className="text">{i}</span>
+                    <span className="text">{moduleData[moduleI].category}</span>
                 }                
                 <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
                     close
@@ -109,11 +183,33 @@ export default function Dashboard(props) {
     }
 
     const removeItem = (i) => {
+        const url = props.baseURL
         setLayout( _.reject(layout, { i: i }))
+        fetch(url + '/module/delete', {
+            method: 'DELETE',
+            body: JSON.stringify({
+                user: props.currentUser.id,
+                i_value: i
+             }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log('Module successfully deleted')
+                return
+            }
+        })
+        .catch((err) => {
+            console.log('Error => ', err)
+          })
     }
 
     const openGridItemModal = () => {
         document.querySelector("#create-grid-item-modal").style.display = "block"
+        setAddActive(false)
     }
 
     const closeGridItemModal = () => {
@@ -123,12 +219,18 @@ export default function Dashboard(props) {
 
         document.querySelector("#new-grid-item-form").reset()
         document.querySelector("#create-grid-item-modal").style.display = "none"
+
+        console.log('After set layout inside of close modal', layout)
     }
 
     window.onclick = (e) => {
-        let modal = document.querySelector("#create-grid-item-modal")
-        if (e.target == modal) {
+        let gridItemModal = document.querySelector("#create-grid-item-modal")
+        let addEntryModal = document.querySelector("#new-entry-modal")
+        if (e.target == gridItemModal) {
             closeGridItemModal()
+        }
+        if (e.target == addEntryModal) {
+            closeNewEntryModal()
         }
     }
 
@@ -149,12 +251,193 @@ export default function Dashboard(props) {
         setCreateModuleSubmitButtonDisabled(true)
     }
 
-    const setFrequencyValue = (e) => {
+    const setFrequencyValue = () => {
         setCreateModuleSubmitButtonDisabled(false)
     }
 
-    const setIntervalValue = (e) => {
+    const setIntervalValue = () => {
         setCreateModuleSubmitButtonDisabled(false)
+    }
+
+    const openAddEntryModal = () => {
+        document.querySelector("#new-entry-modal").style.display = "block"
+        setAddActive(false)
+    }
+
+    const closeNewEntryModal = () => {
+        setCreateNewEntrySubmitDisabled(true)
+        setEntryTypeStateValue()
+        setIncomeOrExpenseRecurringStateValue(false)
+        setIncomeOrExpenseFrequencyStateValue("")
+        setIncomeOrExpenseDateStateValue(null)
+        setIncomeOrExpenseAmountStateValue("")
+        setBillRecurringStateValue(false)
+        
+        setBillDateStateValue(null)
+
+        document.querySelector("#new-entry-form").reset()
+        document.querySelector("#new-entry-modal").style.display = "none"
+    }
+
+    const setEntryTypeValue = (e) => {
+        setEntryTypeStateValue(e.target.value)
+        setIncomeOrExpenseRecurringStateValue(false)
+        setBillRecurringStateValue(false)
+        setCreateNewEntrySubmitDisabled(true)
+    }
+
+    const setIncomeOrExpenseRecurringValue = (e) => {
+        setIncomeOrExpenseRecurringStateValue(!incomeOrExpenseRecurringStateValue)
+    }
+
+    const setIncomeOrExpenseFrequencyValue = (e) => {
+        setIncomeOrExpenseFrequencyStateValue(e.target.value)
+        let frequency = document.getElementById("income-or-expense-frequency-dropdown")
+        let date = document.getElementById("income-or-expense-date")
+        let amount = document.getElementById("income-or-expense-amount")
+        if (incomeOrExpenseRecurringStateValue === false) {
+            if ((date === null) || (amount == null)) {
+                setCreateNewEntrySubmitDisabled(true)
+            }
+            else {
+                setCreateNewEntrySubmitDisabled(false)
+            }
+        } else if (incomeOrExpenseRecurringStateValue === true) {
+            if ((frequency === "") || (date === null) || (amount === null)) {
+                setCreateNewEntrySubmitDisabled(true)
+            }
+            else {
+                setCreateNewEntrySubmitDisabled(false)
+            }
+        }
+    }
+
+    const setIncomeOrExpenseDateValue = (e) => {
+        setIncomeOrExpenseDateStateValue(e.target.value)
+        let frequency = document.getElementById("income-or-expense-frequency-dropdown")
+        let date = document.getElementById("income-or-expense-date")
+        let amount = document.getElementById("income-or-expense-amount")
+        if (incomeOrExpenseRecurringStateValue === false) {
+            if ((date === null) || (amount == null)) {
+                setCreateNewEntrySubmitDisabled(true)
+            }
+            else {
+                setCreateNewEntrySubmitDisabled(false)
+            }
+        } else if (incomeOrExpenseRecurringStateValue === true) {
+            if ((frequency === "") || (date === null) || (amount === null)) {
+                setCreateNewEntrySubmitDisabled(true)
+            }
+            else {
+                setCreateNewEntrySubmitDisabled(false)
+            }
+        }
+    }
+
+    const setIncomeOrExpenseAmountValue = (e) => {
+        setIncomeOrExpenseAmountStateValue(e.target.value)
+        let frequency = document.getElementById("income-or-expense-frequency-dropdown")
+        let date = document.getElementById("income-or-expense-date")
+        let amount = document.getElementById("income-or-expense-amount")
+        if (incomeOrExpenseRecurringStateValue === false) {
+            if ((date === null) || (amount == null)) {
+                setCreateNewEntrySubmitDisabled(true)
+            }
+            else {
+                setCreateNewEntrySubmitDisabled(false)
+            }
+        } else if (incomeOrExpenseRecurringStateValue === true) {
+            if ((frequency === "") || (date === null) || (amount === null)) {
+                setCreateNewEntrySubmitDisabled(true)
+            }
+            else {
+                setCreateNewEntrySubmitDisabled(false)
+            }
+        }
+    }
+
+    const setBillRecurringValue = () => {
+        setBillRecurringStateValue(!billRecurringStateValue)
+    }
+
+    const setBillFrequencyValue = (e) => {
+        setBillFrequencyStateValue(e.target.value)
+    }
+
+    const setBillDateValue = (e) => {
+        setBillDateStateValue(e.target.value)
+    }
+
+    const setGoalNameValue = (e) => {
+        setGoalNameStateValue(e.target.value)
+    }
+
+    const setGoalAmountValue = (e) => {
+        setGoalAmountStateValue(e.target.value)
+    }
+
+    const createNewEntry = (e) => {
+        e.preventDefault()
+        const url = props.baseURL
+        let entryType
+        let entryBody
+        if (e.target.entrytype.value === "income") {
+            entryType = "income"
+            entryBody = {
+                user: props.currentUser.id,
+                recurring: e.target.incomeorexpenserecurring.value,
+                frequency: e.target.incomeorexpensefrequency.value,
+                date: e.target.incomeorexpensedate.value,
+                amount: e.target.incomeorexpenseamount.value
+            }
+        } else if (e.target.entrytype.value === "expense") {
+            entryType = "expense"
+            entryBody = {
+                user: props.currentUser.id,
+                recurring: e.target.incomeorexpenserecurring.value,
+                frequency: e.target.incomeorexpensefrequency.value,
+                date: e.target.incomeorexpensedate.value,
+                amount: e.target.incomeorexpenseamount.value
+            }
+        }
+        else if (e.target.category.value === "bill") {
+            entryType = "bill"
+            entryBody = {
+                user: props.currentUser.id,
+                paid: false,
+                recurring: e.target.billrecurring.value,
+                frequency: e.target.billfrequency.value,
+                due_date: e.target.billdate.value
+            }
+        } else if (e.target.category.value === "goal") {
+            entryType = "goal"
+            entryBody = {
+                user: props.currentUser.id,
+                name: e.target.goalname.value,
+                amount: e.target.goalamount.value,
+                percentage_completed: 0
+            }
+        }
+        fetch(url + '/' + entryType + '/new', {
+            method: 'POST',
+            body: JSON.stringify(
+                entryBody
+            ),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+        .then((response) => {
+            if (response.status === 201) {
+                console.log('New ' + entryType + ' created')
+                return
+            }
+        })
+        .catch((err) => {
+            console.log('Error => ', err)
+          })
+        closeNewEntryModal()
     }
 
     useEffect(() => {
@@ -170,7 +453,6 @@ export default function Dashboard(props) {
     }, [])
 
     return (
-        
         <>
             <div>
                 <div className="menu-button" onClick={toggleMenuActive}>
@@ -201,10 +483,131 @@ export default function Dashboard(props) {
                     </div>
                 </div>
                 <div id="add-button-content" className={addActive === true ? ("open") : null}>
-                    <div id="new-entry-link" className={addActive === true ? ("open") : null}>new entry.</div>
+                    <div id="new-entry-link" className={addActive === true ? ("open") : null} onClick={openAddEntryModal}>new entry.</div>
                     <div id="new-module-link" className={addActive === true ? ("open") : null} onClick={openGridItemModal}>new module.</div>
                 </div>
                 <div className="add-button-background-fill" onClick={toggleAddActive} style={addActive === true ? ({display: "block"}) : ({display: "none"})}></div>
+            </div>
+            <div>                
+                <div id="new-entry-modal" className="new-entry-modal-class">
+                    <div className="new-entry-modal-content">
+                        <span className="material-symbols-rounded close-new-entry-modal" onClick={closeNewEntryModal} style={{
+                            position: "absolute",
+                            right: "2px",
+                            top: 0,
+                            cursor: "pointer"
+                        }}>
+                            close
+                        </span>
+                        <div id="new-entry-text">New Entry</div>
+                        <div className="new-entry-modal-dropdowns">
+                            <form id="new-entry-form" className="new-entry-form" onSubmit={createNewEntry}>
+                                <div className="new-entry-form-selections">
+                                    <label htmlFor="entry-type-dropdown">Type:&nbsp;&nbsp;</label>
+                                    <select id="entry-type-dropdown" name="entrytype" onChange={setEntryTypeValue}>
+                                        <option value="" default defaultValue>Select one...</option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                        <option value="bill">Bill</option>
+                                        <option value="goal">Goal</option>
+                                    </select>
+                                </div>
+                                {
+                                    ((entryTypeStateValue === "income") || (entryTypeStateValue === "expense")) ? (
+                                        <div className="new-entry-form-selections">
+                                            <label htmlFor="income-or-expense-recurring">Recurring?&nbsp;</label>
+                                            <input id="income-or-expense-recurring" name="incomeorexpenserecurring" type="checkbox" onChange={setIncomeOrExpenseRecurringValue} checked={incomeOrExpenseRecurringStateValue}></input>
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    incomeOrExpenseRecurringStateValue === true ? (
+                                        <div className="new-entry-form-selections">
+                                            <label htmlFor="income-or-expense-frequency-dropdown">Frequency:&nbsp;&nbsp;</label>
+                                        <select id="income-or-expense-frequency-dropdown" name="incomeorexpensefrequency" onChange={setIncomeOrExpenseFrequencyValue}>
+                                            <option value="" default defaultValue>Select one...</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="biweekly">Biweekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="annually">Annually</option>
+                                        </select>
+                                        </div>
+                                    ): null
+                                }
+                                {
+                                    ((entryTypeStateValue === "income") || (entryTypeStateValue === "expense")) ? (
+                                        <>
+                                            <div className="new-entry-form-selections">
+                                                <label htmlFor="income-or-expense-date">
+                                                    {incomeOrExpenseRecurringStateValue === true ? (
+                                                        "Starting date:"
+                                                    ) : "Date:"}</label>
+                                                <input id="income-or-expense-date" name="incomeorexpensedate" type="date" onChange={setIncomeOrExpenseDateValue}></input>
+                                            </div>
+                                            <div className="new-entry-form-selections">
+                                                <label htmlFor="income-or-expense-amount">Amount (in dollars):</label>
+                                                <input id="income-or-expense-amount" name="incomeorexpenseamount" type="number" onChange={setIncomeOrExpenseAmountValue}></input>
+                                            </div>
+                                        </>
+                                    ) : null
+                                }
+                                {
+                                    (entryTypeStateValue === "bill") ? (
+                                        <div className="new-entry-form-selections">
+                                            <label htmlFor="bill-recurring">Recurring?&nbsp;</label>
+                                            <input id="bill-recurring" name="billrecurring" type="checkbox" onChange={setBillRecurringValue} checked={billRecurringStateValue}></input>
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    billRecurringStateValue === true ? (
+                                        <div className="new-entry-form-selections">
+                                            <label htmlFor="bill-frequency-dropdown">Frequency:&nbsp;&nbsp;</label>
+                                        <select id="bill-frequency-dropdown" name="billfrequency" onChange={setBillFrequencyValue} value={billFrequencyStateValue}>
+                                            <option value="" default defaultValue>Select one...</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="biweekly">Biweekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="annually">Annually</option>
+                                        </select>
+                                        </div>
+                                    ): null
+                                }
+                                {
+                                    (entryTypeStateValue === "bill") ? (
+                                        <>
+                                            <div className="new-entry-form-selections">
+                                                <label htmlFor="bill-date">
+                                                    {billRecurringStateValue === true ? (
+                                                        "Starting date:"
+                                                    ) : "Date:"}</label>
+                                                <input id="bill-date" name="billdate" type="date" onChange={setBillDateValue}></input>
+                                            </div>
+                                        </>
+                                    ) : null
+                                }
+                                {
+                                    (entryTypeStateValue === "goal") ? (
+                                        <>
+                                            <div className="new-entry-form-selections">
+                                                <label htmlFor="goal-name">Name:&nbsp;&nbsp;</label>
+                                                <input id="goal-name" name="goalname" type="text" onChange={setGoalNameValue} value={goalNameStateValue}></input>
+                                            </div>
+                                            <div className="new-entry-form-selections">
+                                                <label htmlFor="goal-amount">Amount (in dollars):</label>
+                                                <input id="goal-amount" name="goalamount" type="number" onChange={setGoalAmountValue} value={goalAmountStateValue}></input>
+                                            </div>
+                                        </>
+                                    ) : null
+                                }
+                            </form>
+                        </div>
+                        <div className="new-entry-modal-buttons">
+                            <button id="new-entry-close-button" onClick={closeNewEntryModal}>Close</button>
+                            <button id="create-new-entry-button" type="submit" form="new-entry-form" disabled={createNewEntrySubmitDisabled}>Create new entry</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div>                
                 <div id="create-grid-item-modal" className="create-grid-item-modal-class">
@@ -219,19 +622,7 @@ export default function Dashboard(props) {
                         </span>
                         <div id="create-new-grid-item-text">Create new module</div>
                         <div className="create-grid-item-modal-dropdowns">
-                            <form id="new-grid-item-form" className="new-grid-item-form" onSubmit={(e) => {
-                                e.preventDefault()
-                                if (e.target.category.value === "transactions") {
-                                    console.log(e.target.category.value)
-                                    console.log(e.target.transactiontype.value)
-                                    console.log(e.target.interval.value)
-                                } else if (e.target.category.value === "bills") {
-                                    console.log(e.target.category.value)
-                                    console.log(e.target.frequency.value)
-                                } else if (e.target.category.value === "goals") {
-                                    console.log(e.target.category.value)
-                                }
-                            }}>
+                            <form id="new-grid-item-form" className="new-grid-item-form" onSubmit={onAddItem}>
                                 <div className="new-grid-item-form-selections">
                                     <label htmlFor="category-dropdown">Category:&nbsp;&nbsp;</label>
                                     <select id="category-dropdown" name="category" onChange={setCategoryValue}>
@@ -284,8 +675,7 @@ export default function Dashboard(props) {
                         </div>
                         <div className="create-grid-item-modal-buttons">
                             <button id="create-grid-item-close-button" onClick={closeGridItemModal}>Close</button>
-                            {/* <button id="create-grid-item-button" onClick={() => {onAddItem(); closeGridItemModal();}}>Create New Item</button> */}
-                            <button id="create-grid-item-button" type="submit" form="new-grid-item-form" disabled={createModuleSubmitButtonDisabled}>Add module</button>
+                            <button id="create-grid-item-button" type="submit" form="new-grid-item-form" disabled={createModuleSubmitButtonDisabled}>Create module</button>
                         </div>
                     </div>
                 </div>
@@ -301,11 +691,12 @@ export default function Dashboard(props) {
                         width={viewWidth}
                         onLayoutChange={onLayoutChange}
                     >
-                        {/* {_.map(layout, e => createElement(e))} */}
-                        <div key={1}>          
-                            <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem()}>
-                                close
-                            </span>
+                        {
+
+                                _.map(layout, e => createElement(e))
+
+                        }
+                        {/* <>
                             <div className="bills-module-block">
                                 <div className="bills-module-title">Bills</div>
                                 <div className="module-body bills-module-body">
@@ -363,7 +754,7 @@ export default function Dashboard(props) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </> */}
                     </GridLayout>
                 </div>
             </div>
