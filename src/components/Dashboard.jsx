@@ -488,6 +488,8 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
+        onLayoutChange(layout)
+        console.log('new layout', layout)
         let viewportWidth = window.innerWidth
         let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 30) / 12
         setViewWidth(viewportWidth - 50)
@@ -497,7 +499,7 @@ export default function Dashboard(props) {
         return () => {
             document.body.style.overflowY = "scroll"
         }
-    }, [])
+    }, [layout])
 
     return (
         <>
@@ -651,7 +653,7 @@ export default function Dashboard(props) {
                         </div>
                         <div className="new-entry-modal-buttons">
                             <button id="new-entry-close-button" onClick={closeNewEntryModal}>Close</button>
-                            <button id="create-new-entry-button" type="submit" form="new-entry-form" disabled={createNewEntrySubmitDisabled}>Create new entry</button>
+                            <button id="create-new-entry-button" type="submit" form="new-entry-form">Create new entry</button>
                         </div>
                     </div>
                 </div>

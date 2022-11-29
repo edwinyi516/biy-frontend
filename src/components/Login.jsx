@@ -92,7 +92,7 @@ export default function Login(props) {
                             <input type="checkbox" id="remember" name="remember" onChange={handleChange} value={formValues.remember}></input>
                             <label htmlFor="remember" id="remember-me-label">Remember me</label>
                         </div>
-                        <button type="submit" disabled={!formValues.email || !formValues.password ||submitted}>Login</button>
+                        <button type="submit" disabled={!formValues.email || !formValues.password || submitted}>Login</button>
                         <div className="no-account-yet-block">
                             <div className="no-account-text">Don't have an account yet?</div>
                             <a className="login-form-to-signup-link" href="/signup">Sign Up</a>
