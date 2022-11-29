@@ -319,6 +319,7 @@ export default function Dashboard(props) {
         setIncomeOrExpenseDateStateValue(null)
         setIncomeOrExpenseAmountStateValue("")
         setBillRecurringStateValue(false)
+        setBillFrequencyStateValue("")
         
         setBillDateStateValue(null)
 
@@ -430,33 +431,57 @@ export default function Dashboard(props) {
         let entryBody
         if (e.target.entrytype.value === "income") {
             entryType = "income"
+            let recurring = incomeOrExpenseRecurringStateValue
+            let frequency
+            if (recurring === true) {
+                frequency = e.target.incomeorexpensefrequency.value
+            } else {
+                recurring = false
+                frequency = ""
+            }
             entryBody = {
                 user: props.currentUser.id,
-                recurring: e.target.incomeorexpenserecurring.value,
-                frequency: e.target.incomeorexpensefrequency.value,
+                recurring: recurring,
+                frequency: frequency,
                 date: e.target.incomeorexpensedate.value,
                 amount: e.target.incomeorexpenseamount.value
             }
         } else if (e.target.entrytype.value === "expense") {
             entryType = "expense"
+            let recurring = incomeOrExpenseRecurringStateValue
+            let frequency
+            if (recurring === true) {
+                frequency = e.target.incomeorexpensefrequency.value
+            } else {
+                recurring = false
+                frequency = ""
+            }
             entryBody = {
                 user: props.currentUser.id,
-                recurring: e.target.incomeorexpenserecurring.value,
-                frequency: e.target.incomeorexpensefrequency.value,
+                recurring: recurring,
+                frequency: frequency,
                 date: e.target.incomeorexpensedate.value,
                 amount: e.target.incomeorexpenseamount.value
             }
         }
-        else if (e.target.category.value === "bill") {
+        else if (e.target.entrytype.value === "bill") {
             entryType = "bill"
+            let recurring = billRecurringStateValue
+            let frequency
+            if (recurring === true) {
+                frequency = e.target.billfrequency.value
+            } else {
+                recurring = false
+                frequency = ""
+            }
             entryBody = {
                 user: props.currentUser.id,
                 paid: false,
-                recurring: e.target.billrecurring.value,
-                frequency: e.target.billfrequency.value,
+                recurring: recurring,
+                frequency: frequency,
                 due_date: e.target.billdate.value
             }
-        } else if (e.target.category.value === "goal") {
+        } else if (e.target.entrytype.value === "goal") {
             entryType = "goal"
             entryBody = {
                 user: props.currentUser.id,
@@ -488,8 +513,6 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
-        onLayoutChange(layout)
-        console.log('new layout', layout)
         let viewportWidth = window.innerWidth
         let rowHeight = (document.querySelector(".dashboard-container").clientHeight - 30) / 12
         setViewWidth(viewportWidth - 50)
@@ -604,7 +627,7 @@ export default function Dashboard(props) {
                                     (entryTypeStateValue === "bill") ? (
                                         <div className="new-entry-form-selections">
                                             <label htmlFor="bill-recurring">Recurring?&nbsp;</label>
-                                            <input id="bill-recurring" name="billrecurring" type="checkbox" onChange={setBillRecurringValue} checked={billRecurringStateValue}></input>
+                                            <input id="bill-recurring" name="billrecurring" type="checkbox" onChange={setBillRecurringValue} checked={billRecurringStateValue} value={billRecurringStateValue}></input>
                                         </div>
                                     ) : null
                                 }
@@ -612,7 +635,7 @@ export default function Dashboard(props) {
                                     billRecurringStateValue === true ? (
                                         <div className="new-entry-form-selections">
                                             <label htmlFor="bill-frequency-dropdown">Frequency:&nbsp;&nbsp;</label>
-                                        <select id="bill-frequency-dropdown" name="billfrequency" onChange={setBillFrequencyValue} value={billFrequencyStateValue}>
+                                        <select id="bill-frequency-dropdown" name="billfrequency" onChange={setBillFrequencyValue}>
                                             <option value="" default defaultValue>Select one...</option>
                                             <option value="weekly">Weekly</option>
                                             <option value="biweekly">Biweekly</option>
@@ -629,7 +652,7 @@ export default function Dashboard(props) {
                                                 <label htmlFor="bill-date">
                                                     {billRecurringStateValue === true ? (
                                                         "Starting date:"
-                                                    ) : "Date:"}</label>
+                                                    ) : "Due date:"}</label>
                                                 <input id="bill-date" name="billdate" type="date" onChange={setBillDateValue}></input>
                                             </div>
                                         </>
