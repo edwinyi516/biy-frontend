@@ -94,7 +94,6 @@ export default function App () {
     .then(data => {
       let parsedLayout = eval(data.data.layout_data)
       setUserLayout(parsedLayout)
-      console.log(parsedLayout)
       return
     })
     .catch((err) => {

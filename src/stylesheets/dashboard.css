@@ -772,6 +772,40 @@ input[type=number]::-webkit-outer-spin-button
     outline-color: #9e87b9;
 }
 
+.transactions-module-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.transactions-module-title {
+    font-family: Gramatika;
+    font-size: 2.5rem;
+    margin-top: 1.5rem;
+}
+
+.transactions-module-body {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin: 1rem 0 3rem 0;
+    font-family: Gramatika;
+}
+
+.transactions-body-data {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 1rem 2rem;
+}
+
 .bills-module-block {
     width: 100%;
     height: 100%;
@@ -806,3 +840,36 @@ input[type=number]::-webkit-outer-spin-button
     margin: 1rem 2rem;
 }
 
+.goals-module-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.goals-module-title {
+    font-family: Gramatika;
+    font-size: 2.5rem;
+    margin-top: 1.5rem;
+}
+
+.goals-module-body {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin: 1rem 0 3rem 0;
+    font-family: Gramatika;
+}
+
+.goals-body-data {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 1rem 2rem;
+}

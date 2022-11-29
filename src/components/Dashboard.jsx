@@ -50,7 +50,6 @@ export default function Dashboard(props) {
 
     const onLayoutChange = (layout) => {
         const url = props.baseURL + '/layout/update'
-        console.log('THIS IS LAYOUT DATA BEING SENT TO BACKEND', layout)
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
@@ -75,7 +74,6 @@ export default function Dashboard(props) {
 
     const onAddItem = (e) => {
         e.preventDefault()
-        console.log("Starting on add item")
         const url = props.baseURL
         let nextNumber
         let moduleBody
@@ -142,8 +140,6 @@ export default function Dashboard(props) {
         .catch((err) => {
             console.log('Error => ', err)
         })
-        console.log('next number', nextNumber)
-        console.log("starting setLayout", layout)
         setLayout((previousLayout) => [...previousLayout, {
             i: findNextNumber(),
             x: 0,
@@ -162,24 +158,67 @@ export default function Dashboard(props) {
     const createElement = (e) => {
         const i = e.i
         let moduleI = ((e.i) - 1)
-        console.log('moduleI', moduleI)
-        console.log('moduleI indexed', moduleData[moduleI])
         const removeStyle = {
             position: "absolute",
             right: "2px",
             top: 0,
             cursor: "pointer"
             };
-        return (
-            <div key={i} data-grid={e}>
-                {
-                    <span className="text">{moduleData[moduleI].category}</span>
-                }                
-                <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
-                    close
-                </span>
-            </div>
-        )
+        if (moduleData[moduleI].category === "transactions") {
+            return (
+                <div key={i} data-grid={e}>
+                    <div className="transactions-module-block">
+                        <div className="transactions-module-title">
+                            {moduleData[moduleI].transactiontype.charAt(0).toUpperCase() + moduleData[moduleI].transactiontype.slice(1)}
+                        </div>
+                        <div className="module-body transactions-module-body">
+                            <div className="transactions-body-data">
+                                <div className = "transactions-body-data-text">Text</div>
+                                <div className = "transactions-body-data-details">Details</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else if (moduleData[moduleI].category === "bills") {
+            return (
+                <div key={i} data-grid={e}>
+                    <div className="bills-module-block">
+                        <div className="bills-module-title">Bills</div>
+                        <div className="module-body bills-module-body">
+                            <div className="bills-body-data">
+                                <div className="bills-body-data-text">Text</div>
+                                <div className="bills-body-data-details">Details</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else if (moduleData[moduleI].category === "goals") {
+            return (
+                <div key={i} data-grid={e}>
+                    <div className="goals-module-block">
+                        <div className="goals-module-title">Goals</div>
+                        <div className="module-body goals-module-body">
+                            <div className="goals-body-data">
+                                <div className="goals-body-data-text">Text</div>
+                                <div className="goals-body-data-details">Details</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        // return (
+        //     <div key={i} data-grid={e}>
+        //         {
+        //             <span className="text">{moduleData[moduleI].category}</span>
+        //         }                
+        //         <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
+        //             close
+        //         </span>
+        //     </div>
+        // )
     }
 
     const removeItem = (i) => {
@@ -219,8 +258,6 @@ export default function Dashboard(props) {
 
         document.querySelector("#new-grid-item-form").reset()
         document.querySelector("#create-grid-item-modal").style.display = "none"
-
-        console.log('After set layout inside of close modal', layout)
     }
 
     window.onclick = (e) => {
@@ -691,70 +728,7 @@ export default function Dashboard(props) {
                         width={viewWidth}
                         onLayoutChange={onLayoutChange}
                     >
-                        {
-
-                                _.map(layout, e => createElement(e))
-
-                        }
-                        {/* <>
-                            <div className="bills-module-block">
-                                <div className="bills-module-title">Bills</div>
-                                <div className="module-body bills-module-body">
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                    <div className="bills-body-data">
-                                        <div className="bills-body-data-text">Text</div>
-                                        <div className="bills-body-data-details">Details</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </> */}
+                        {_.map(layout, e => createElement(e))}
                     </GridLayout>
                 </div>
             </div>
