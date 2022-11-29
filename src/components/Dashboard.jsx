@@ -178,7 +178,11 @@ export default function Dashboard(props) {
                             </div>
                         </div>
                     </div>
+                    <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
+                        close
+                    </span>
                 </div>
+                
             )
         } else if (moduleData[moduleI].category === "bills") {
             return (
@@ -192,6 +196,9 @@ export default function Dashboard(props) {
                             </div>
                         </div>
                     </div>
+                    <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
+                        close
+                    </span>
                 </div>
             )
         } else if (moduleData[moduleI].category === "goals") {
@@ -206,6 +213,9 @@ export default function Dashboard(props) {
                             </div>
                         </div>
                     </div>
+                    <span className="material-symbols-rounded remove" style={removeStyle} onClick={() => removeItem(i)}>
+                        close
+                    </span>
                 </div>
             )
         }

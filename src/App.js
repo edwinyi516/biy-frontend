@@ -8,8 +8,8 @@ import Dashboard from './components/Dashboard'
 import NavBar from './components/NavBar'
 
 //CHECK FOR DEPLOYMENT
-const baseURL = 'http://localhost:8000'
-// const baseURL = 'https://biy-backend-server.herokuapp.com'
+// const baseURL = 'http://localhost:8000'
+const baseURL = 'https://biy-backend-server.herokuapp.com'
 
 export default function App () {
   const [currentUser, setCurrentUser] = useState()
@@ -111,11 +111,11 @@ export default function App () {
   }
 
   useEffect(() => {
-
+    if (location.pathname === "/dashboard") {
       getCurrentUser()
       getUserLayout()
       getUserModuleData()
-
+    }
   }, [])
 
   return (
